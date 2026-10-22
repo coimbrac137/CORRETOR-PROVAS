@@ -1,0 +1,110 @@
+esta aqui vai ser a estrutura do projeto: 
+
+CORRETOR-PROVAS/
+├── frontend/
+│   ├── index.html
+│   ├── cadastrar_gabarito.html
+│   ├── upload_provas.html
+│   ├── processar.html
+│   └── exportar_txt.html
+├── backend/
+│   ├── config.php
+│   ├── salvar_gabarito.php
+│   ├── receber_uploads.php
+│   ├── chamar_python.php
+│   └── gerar_txt.php
+├── visao_computacional/
+│   ├── ler_cartao.py
+│   ├── requirements.txt
+│   └── modelos/
+├── assets/
+│   ├── style.css
+│   └── script.js
+├── dados/
+│   ├── gabaritos/
+│   ├── uploads/
+│   └── resultados/
+└── README.md
+
+------------------------------------------------------------
+
+Você está trabalhando no projeto CORRETOR-PROVAS — sistema web local para correção automática de provas via cartão-resposta.
+
+REGRAS DE TRABALHO:
+- Modo VIBE CODING: respostas curtas, sem explicações longas, sem sugestões não solicitadas.
+- Sempre entregar arquivos COMPLETOS prontos para copiar/colar.
+- Não alterar nada fora do que foi pedido.
+- Não inventar funcionalidades.
+- Priorizar: PROBLEMA → SOLUÇÃO → CÓDIGO → TESTE.
+
+STACK:
+- Frontend: HTML puro + CSS + JavaScript (sem framework)
+- Backend: PHP rodando no XAMPP (Apache)
+- Visão computacional: Python + OpenCV
+- Armazenamento: arquivos JSON e imagens em disco (sem banco de dados)
+
+ESTRUTURA DO PROJETO:
+
+CORRETOR-PROVAS/
+├── frontend/
+│   ├── index.html               → tela inicial / menu
+│   ├── cadastrar_gabarito.html  → formulário do gabarito (45 questões A-E)
+│   ├── upload_provas.html       → envio das fotos dos cartões (nome do arquivo = matrícula)
+│   ├── processar.html           → botão para iniciar a correção
+│   └── exportar_txt.html        → baixar o TXT com respostas e notas
+├── backend/
+│   ├── config.php               → constantes, caminhos, helpers comuns
+│   ├── salvar_gabarito.php      → recebe POST do gabarito e grava em dados/gabaritos/gabarito.json
+│   ├── receber_uploads.php      → recebe multipart das fotos e grava em dados/uploads/
+│   ├── chamar_python.php        → executa o script Python via shell_exec e coleta o resultado
+│   └── gerar_txt.php            → lê resultados e gera dados/resultados/resultado.txt
+├── visao_computacional/
+│   ├── ler_cartao.py            → OpenCV: detecta marcações nas 45 questões e retorna JSON
+│   ├── requirements.txt         → opencv-python, numpy
+│   └── modelos/                 → arquivos auxiliares (templates, calibração)
+├── assets/
+│   ├── style.css                → estilo global de todas as telas
+│   └── script.js                → JS global (fetch para o backend, validações)
+├── dados/
+│   ├── gabaritos/               → gabarito.json
+│   ├── uploads/                 → fotos enviadas pelos alunos
+│   └── resultados/              → resultado.txt e JSONs intermediários
+└── README.md
+
+FLUXO DE COMUNICAÇÃO ENTRE DIRETÓRIOS:
+
+1) CADASTRAR GABARITO
+   frontend/cadastrar_gabarito.html
+   → POST para backend/salvar_gabarito.php
+   → grava dados/gabaritos/gabarito.json
+   → retorna sucesso para o frontend
+
+2) UPLOAD DAS PROVAS
+   frontend/upload_provas.html
+   → POST multipart para backend/receber_uploads.php
+   → grava imagens em dados/uploads/ (nome = matrícula do aluno)
+   → retorna lista de arquivos recebidos
+
+3) PROCESSAR
+   frontend/processar.html
+   → GET para backend/chamar_python.php
+   → backend/chamar_python.php executa:
+        python visao_computacional/ler_cartao.py --gabarito dados/gabaritos/gabarito.json --uploads dados/uploads/ --saida dados/resultados/
+   → ler_cartao.py lê cada imagem, detecta marcações via OpenCV,
+     compara com o gabarito, calcula nota e escreve um JSON em dados/resultados/
+   → chamar_python.php lê esse JSON e retorna o resumo para o frontend
+
+4) EXPORTAR TXT
+   frontend/exportar_txt.html
+   → GET para backend/gerar_txt.php
+   → lê JSONs em dados/resultados/ e grava dados/resultados/resultado.txt
+   → disponibiliza download do TXT
+
+CONVENÇÕES:
+- Fotos devem ser nomeadas como <matricula>.jpg (ou .png).
+- Gabarito sempre em JSON: {"1":"A","2":"C",...,"45":"B"}.
+- Scripts Python chamados exclusivamente via backend/chamar_python.php.
+- Frontend NUNCA acessa dados/ diretamente; sempre via backend/.
+- Caminhos no backend sempre absolutos a partir de __DIR__.
+
+Ao receber qualquer pedido neste projeto, considere esta estrutura como verdadeira, altere apenas os arquivos necessários para a tarefa, e entregue sempre o arquivo completo.
