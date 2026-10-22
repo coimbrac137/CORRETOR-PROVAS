@@ -12,7 +12,8 @@ main { background: #fff; padding: 20px; border-radius: 6px; max-width: 900px; ma
 h2 { margin: 20px 0 10px; font-size: 18px; border-bottom: 2px solid #ecf0f1; padding-bottom: 6px; }
 form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
 label { font-weight: bold; font-size: 14px; }
-input, select, button { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+input, select, textarea, button { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+textarea { resize: vertical; min-height: 150px; font-family: monospace; }
 button { background: #2980b9; color: #fff; border: none; cursor: pointer; padding: 10px 15px; }
 button:hover { background: #21618c; }
 button.secundario { background: #27ae60; }
@@ -33,8 +34,8 @@ th { background: #ecf0f1; }
 <main>
 
 <div class="abas">
-    <button type="button" class="ativa" onclick="mostrarAba('img')">Enviar Imagens</button>
-    <button type="button" onclick="mostrarAba('manual')">Gabarito Manual + Cartão do Aluno</button>
+    <button type="button" class="ativa" onclick="mostrarAba('img')">Enviar Imagens (Automático)</button>
+    <button type="button" onclick="mostrarAba('manual')">Colar Respostas (Manual)</button>
 </div>
 
 <!-- ABA IMAGENS -->
@@ -64,12 +65,14 @@ th { background: #ecf0f1; }
     <button type="button" class="secundario" onclick="salvarGabarito()">Salvar Gabarito</button>
     <div id="status-gabarito" style="margin-top:10px;font-size:13px;"></div>
 
-    <h2>Corrigir Cartão do Aluno</h2>
-    <form method="post" action="../backend/processar.php" enctype="multipart/form-data">
-        <input type="hidden" name="modo" value="manual">
-        <label>Foto do cartão do aluno</label>
-        <input type="file" name="cartao_aluno" accept="image/*" required>
-        <button type="submit">Corrigir</button>
+    <h2>Corrigir Turma (Lote)</h2>
+    <form method="post" action="../backend/processar.php">
+        <input type="hidden" name="modo" value="lote">
+        
+        <label>Cole aqui a lista de alunos (Nome + Respostas):</label>
+        <textarea name="lista_alunos" placeholder="Exemplo:&#10;João Silva: C B C A B B D A C B D C B B D C C A D B B B A D A A D C C D C A C B B D A D B A B A B A C&#10;Maria Souza: A B C D A B C D A B C D A B C D A B C D A B C D A B C D A B C D A B C D A B C D A B C D A" required></textarea>
+        
+        <button type="submit">Corrigir Todos</button>
     </form>
 </div>
 

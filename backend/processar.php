@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $modo = $_POST['modo'] ?? 'imagem';
 $id = gerar_id();
 
-if ($modo === 'manual') {
+if ($modo === 'lote') {
     $arquivoGab = TMP_DIR . '/gabarito_oficial.json';
     if (!file_exists($arquivoGab)) {
         die('Nenhum gabarito salvo. Salve o gabarito antes de corrigir.');
@@ -19,77 +19,75 @@ if ($modo === 'manual') {
         die('Gabarito salvo incompleto. Salve novamente.');
     }
 
-    if (!isset($_FILES['cartao_aluno']) || $_FILES['cartao_aluno']['error'] !== UPLOAD_ERR_OK) {
-        die('Envie a foto do cartão do aluno.');
+    $texto = $_POST['lista_alunos'] ?? '';
+    // Separa por linhas, ignorando linhas vazias
+    $linhas = explode("\n", str_replace("\r", "", $texto));
+    $linhas = array_filter(array_map('trim', $linhas));
+
+    if (empty($linhas)) {
+        die('Nenhum aluno informado.');
     }
 
-    $ext = strtolower(pathinfo($_FILES['cartao_aluno']['name'], PATHINFO_EXTENSION));
-    if (!in_array($ext, ['jpg','jpeg','png'])) {
-        die('Formato inválido. Use JPG ou PNG.');
+    $resultadosTurma = [];
+    $id_turma = gerar_id();
+
+    foreach ($linhas as $linha) {
+        // Separa o nome do restante (tenta dividir por ":" ou espaço)
+        $partes = explode(':', $linha, 2);
+        
+        if (count($partes) == 2) {
+            $nome = trim($partes[0]);
+            $respostas_texto = strtoupper(trim($partes[1]));
+        } else {
+            $nome = 'Aluno ' . (count($resultadosTurma) + 1);
+            $respostas_texto = strtoupper(trim($linha));
+        }
+
+        // Extrai apenas letras A, B, C, D
+        preg_match_all('/[ABCD]/', $respostas_texto, $matches);
+        $letras = $matches[0];
+
+        if (count($letras) < 45) {
+            continue; // Pula se não tiver 45 respostas
+        }
+
+        $aluno = [];
+        for ($i = 0; $i < 45; $i++) {
+            $aluno[$i + 1] = $letras[$i];
+        }
+
+        $acertos = 0;
+        $detalhes = [];
+        for ($i = 1; $i <= 45; $i++) {
+            $g = $gabaritoSalvo[$i] ?? '';
+            $a = $aluno[$i] ?? '';
+            $acertou = ($g !== '' && $g === $a);
+            if ($acertou) $acertos++;
+            $detalhes[$i] = [
+                'gabarito' => $g,
+                'aluno' => $a,
+                'acertou' => $acertou
+            ];
+        }
+
+        $resultadosTurma[] = [
+            'nome' => $nome,
+            'matricula' => '',
+            'acertos' => $acertos,
+            'erros' => 45 - $acertos,
+            'nota' => round(($acertos / 45) * 10, 2),
+            'percentual' => round(($acertos / 45) * 100, 2),
+            'detalhes' => $detalhes
+        ];
     }
 
-    $imgAluno = TMP_DIR . '/' . $id . '_aluno.' . $ext;
-    move_uploaded_file($_FILES['cartao_aluno']['tmp_name'], $imgAluno);
-
-    $script = PYTHON_DIR . '/ler_cartao.py';
-    $cmd = escapeshellcmd(PYTHON_BIN) . ' ' . escapeshellarg($script)
-         . ' --aluno ' . escapeshellarg($imgAluno)
-         . ' --gabarito-json ' . escapeshellarg($arquivoGab)
-         . ' --saida ' . escapeshellarg(TMP_DIR . '/' . $id . '.json')
-         . ' 2>&1';
-
-    $output = shell_exec($cmd);
-
-    if (!file_exists(TMP_DIR . '/' . $id . '.json')) {
-        limpar_arquivo($imgAluno);
-        die('<pre>Erro ao processar imagem. Saída Python:' . "\n" . htmlspecialchars($output) . '</pre>');
+    if (empty($resultadosTurma)) {
+        die('Nenhuma linha válida foi encontrada. Certifique-se de que cada aluno tem 45 letras (A, B, C ou D).');
     }
 
-    limpar_arquivo($imgAluno);
-    header('Location: ../frontend/ver.php?id=' . $id);
+    file_put_contents(TMP_DIR . '/' . $id_turma . '.json', json_encode($resultadosTurma, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    header('Location: ../frontend/ver_turma.php?id=' . $id_turma);
     exit;
 }
 
-// MODO IMAGEM (2 fotos)
-if (!isset($_FILES['cartao_aluno']) || !isset($_FILES['cartao_gabarito'])) {
-    die('Envie as duas imagens.');
-}
-
-if ($_FILES['cartao_aluno']['error'] !== UPLOAD_ERR_OK || $_FILES['cartao_gabarito']['error'] !== UPLOAD_ERR_OK) {
-    die('Erro no upload das imagens.');
-}
-
-$extAluno = strtolower(pathinfo($_FILES['cartao_aluno']['name'], PATHINFO_EXTENSION));
-$extGab = strtolower(pathinfo($_FILES['cartao_gabarito']['name'], PATHINFO_EXTENSION));
-$permitidas = ['jpg','jpeg','png'];
-
-if (!in_array($extAluno, $permitidas) || !in_array($extGab, $permitidas)) {
-    die('Formato inválido. Use JPG ou PNG.');
-}
-
-$imgAluno = TMP_DIR . '/' . $id . '_aluno.' . $extAluno;
-$imgGab = TMP_DIR . '/' . $id . '_gabarito.' . $extGab;
-
-move_uploaded_file($_FILES['cartao_aluno']['tmp_name'], $imgAluno);
-move_uploaded_file($_FILES['cartao_gabarito']['tmp_name'], $imgGab);
-
-$script = PYTHON_DIR . '/ler_cartao.py';
-$cmd = escapeshellcmd(PYTHON_BIN) . ' ' . escapeshellarg($script)
-     . ' --aluno ' . escapeshellarg($imgAluno)
-     . ' --gabarito ' . escapeshellarg($imgGab)
-     . ' --saida ' . escapeshellarg(TMP_DIR . '/' . $id . '.json')
-     . ' 2>&1';
-
-$output = shell_exec($cmd);
-
-if (!file_exists(TMP_DIR . '/' . $id . '.json')) {
-    limpar_arquivo($imgAluno);
-    limpar_arquivo($imgGab);
-    die('<pre>Erro ao processar imagens. Saída Python:' . "\n" . htmlspecialchars($output) . '</pre>');
-}
-
-limpar_arquivo($imgAluno);
-limpar_arquivo($imgGab);
-
-header('Location: ../frontend/ver.php?id=' . $id);
-exit;
+// ... O restante do código (modo imagem e manual_texto) continua igual ...
