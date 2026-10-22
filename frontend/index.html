@@ -92,7 +92,7 @@ function criarTabela(tbodyId, prefixo, valores) {
             const atual = valores && valores[q] ? valores[q] : '';
             html += '<td>' + q + '</td><td><select name="' + prefixo + q + '">';
             html += '<option value="">-</option>';
-            ['A','B','C','D','E'].forEach(a => {
+            ['A','B','C','D'].forEach(a => {
                 const sel = (atual === a) ? ' selected' : '';
                 html += '<option value="' + a + '"' + sel + '>' + a + '</option>';
             });

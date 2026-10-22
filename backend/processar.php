@@ -10,7 +10,6 @@ $modo = $_POST['modo'] ?? 'imagem';
 $id = gerar_id();
 
 if ($modo === 'manual') {
-    // Carrega gabarito salvo
     $arquivoGab = TMP_DIR . '/gabarito_oficial.json';
     if (!file_exists($arquivoGab)) {
         die('Nenhum gabarito salvo. Salve o gabarito antes de corrigir.');

@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $gabarito = [];
 for ($i = 1; $i <= 45; $i++) {
     $g = strtoupper(trim($_POST['gab' . $i] ?? ''));
-    if (!in_array($g, ['A','B','C','D','E'])) {
-        resposta_json(['ok' => false, 'erro' => 'Preencha todas as 45 questões.']);
+    if (!in_array($g, ['A','B','C','D'])) {
+        resposta_json(['ok' => false, 'erro' => 'Preencha todas as 45 questões (A-D).']);
     }
     $gabarito[$i] = $g;
 }

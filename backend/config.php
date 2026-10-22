@@ -2,7 +2,7 @@
 define('BASE_DIR', dirname(__DIR__));
 define('TMP_DIR', BASE_DIR . '/tmp');
 define('PYTHON_DIR', BASE_DIR . '/visao_computacional');
-define('PYTHON_BIN', 'py');
+define('PYTHON_BIN', 'C:\\Users\\estag\\AppData\\Local\\Programs\\Python\\Python315\\python.exe');
 
 if (!is_dir(TMP_DIR)) {
     mkdir(TMP_DIR, 0777, true);
