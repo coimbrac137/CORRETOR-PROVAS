@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Corretor de Provas</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f4f4f4; color: #222; padding: 20px; }
+header { background: #2c3e50; color: #fff; padding: 15px 20px; border-radius: 6px; margin-bottom: 20px; }
+header h1 { font-size: 22px; }
+main { background: #fff; padding: 20px; border-radius: 6px; max-width: 900px; margin: 0 auto; }
+h2 { margin: 20px 0 10px; font-size: 18px; border-bottom: 2px solid #ecf0f1; padding-bottom: 6px; }
+form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+label { font-weight: bold; font-size: 14px; }
+input, select, button { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+button { background: #2980b9; color: #fff; border: none; cursor: pointer; padding: 10px 15px; }
+button:hover { background: #21618c; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { border: 1px solid #ddd; padding: 6px 8px; font-size: 13px; text-align: center; }
+th { background: #ecf0f1; }
+.msg { padding: 10px; border-radius: 4px; margin: 15px 0; }
+.ok { background: #d4edda; color: #155724; }
+.err { background: #f8d7da; color: #721c24; }
+.abas { display: flex; gap: 10px; margin-bottom: 15px; }
+.abas button { flex: 1; background: #bdc3c7; }
+.abas button.ativa { background: #2980b9; }
+.painel { display: none; }
+.painel.ativo { display: block; }
+</style>
+</head>
+<body>
+<header><h1>Corretor de Provas</h1></header>
+<main>
+
+<div class="abas">
+    <button type="button" class="ativa" onclick="mostrarAba('img')">Enviar Imagens</button>
+    <button type="button" onclick="mostrarAba('manual')">Cadastrar Gabarito Manual</button>
+</div>
+
+<!-- ABA IMAGENS -->
+<div id="aba-img" class="painel ativo">
+    <h2>Enviar Imagens</h2>
+    <form id="form-img" method="post" action="../backend/processar.php" enctype="multipart/form-data">
+        <label>Nome do aluno</label>
+        <input type="text" name="nome" required>
+
+        <label>Matrícula</label>
+        <input type="text" name="matricula" required>
+
+        <label>Foto do cartão do aluno</label>
+        <input type="file" name="cartao_aluno" accept="image/*" required>
+
+        <label>Foto do gabarito oficial</label>
+        <input type="file" name="cartao_gabarito" accept="image/*" required>
+
+        <button type="submit">Corrigir</button>
+    </form>
+</div>
+
+<!-- ABA MANUAL -->
+<div id="aba-manual" class="painel">
+    <h2>Cadastrar Gabarito Manual (45 questões)</h2>
+    <form id="form-manual" method="post" action="../backend/processar.php">
+        <input type="hidden" name="modo" value="manual">
+        <label>Nome do aluno</label>
+        <input type="text" name="nome" required>
+        <label>Matrícula</label>
+        <input type="text" name="matricula" required>
+
+        <label>Gabarito oficial</label>
+        <table>
+            <tr><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th></tr>
+            <tbody id="tabela-gabarito"></tbody>
+        </table>
+
+        <h2>Respostas do aluno</h2>
+        <table>
+            <tr><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th></tr>
+            <tbody id="tabela-aluno"></tbody>
+        </table>
+
+        <button type="submit">Corrigir</button>
+    </form>
+</div>
+
+</main>
+<script>
+function mostrarAba(id) {
+    document.querySelectorAll('.painel').forEach(p => p.classList.remove('ativo'));
+    document.querySelectorAll('.abas button').forEach(b => b.classList.remove('ativa'));
+    document.getElementById('aba-' + id).classList.add('ativo');
+    event.target.classList.add('ativa');
+}
+
+function criarTabela(tbodyId, prefixo) {
+    const tbody = document.getElementById(tbodyId);
+    let html = '';
+    for (let i = 1; i <= 15; i++) {
+        html += '<tr>';
+        for (let c = 0; c < 3; c++) {
+            const q = i + (c * 15);
+            html += '<td>' + q + '</td><td><select name="' + prefixo + q + '">';
+            html += '<option value="">-</option>';
+            ['A','B','C','D','E'].forEach(a => {
+                html += '<option value="' + a + '">' + a + '</option>';
+            });
+            html += '</select></td>';
+        }
+        html += '</tr>';
+    }
+    tbody.innerHTML = html;
+}
+criarTabela('tabela-gabarito', 'gab');
+criarTabela('tabela-aluno', 'aluno');
+</script>
+</body>
+</html>
