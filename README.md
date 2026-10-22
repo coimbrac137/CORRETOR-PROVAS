@@ -8,21 +8,23 @@ Sistema especializado em **visão computacional e leitura óptica (OMR)** para e
 
 ## 📋 Índice
 
-- [Sobre o Projeto](#-sobre-o-projeto)
-- [Funcionalidades](#-funcionalidades)
-- [Estrutura do Cartão](#-estrutura-do-cartão)
-- [Como Usar (Fluxo Completo)](#-como-usar-fluxo-completo)
+- [🎯 Sobre o Projeto](#-sobre-o-projeto)
+- [✨ Funcionalidades](#-funcionalidades)
+- [🗂 Estrutura do Cartão](#-estrutura-do-cartão)
+- [🚀 Como Usar (Fluxo Completo)](#-como-usar-fluxo-completo)
   - [1. Cadastro Manual do Gabarito Oficial](#1-cadastro-manual-do-gabarito-oficial)
   - [2. Extração das Respostas via IA](#2-extração-das-respostas-via-ia)
   - [3. Correção Automática e Geração de Resultados](#3-correção-automática-e-geração-de-resultados)
-- [Regras de Extração](#-regras-de-extração)
-- [Formato de Saída](#-formato-de-saída)
-- [Exemplo de Uso](#-exemplo-de-uso)
-- [Boas Práticas](#-boas-práticas)
-- [Limitações e Cuidados](#-limitações-e-cuidados)
-- [Tecnologias Envolvidas](#-tecnologias-envolvidas)
-- [Contribuição](#-contribuição)
-- [Licença](#-licença)
+- [📏 Regras de Extração](#-regras-de-extração)
+- [📤 Formato de Saída](#-formato-de-saída)
+- [🧪 Exemplo de Uso](#-exemplo-de-uso)
+- [✅ Boas Práticas](#-boas-práticas)
+- [⚠️ Limitações e Cuidados](#️-limitações-e-cuidados)
+- [🛠 Tecnologias Envolvidas](#-tecnologias-envolvidas)
+- [🤝 Contribuição](#-contribuição)
+- [📄 Licença](#-licença)
+
+---
 
 ## 🎯 Sobre o Projeto
 
