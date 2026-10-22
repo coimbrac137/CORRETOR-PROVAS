@@ -15,17 +15,17 @@ label { font-weight: bold; font-size: 14px; }
 input, select, button { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
 button { background: #2980b9; color: #fff; border: none; cursor: pointer; padding: 10px 15px; }
 button:hover { background: #21618c; }
+button.secundario { background: #27ae60; }
+button.secundario:hover { background: #1e8449; }
 table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 th, td { border: 1px solid #ddd; padding: 6px 8px; font-size: 13px; text-align: center; }
 th { background: #ecf0f1; }
-.msg { padding: 10px; border-radius: 4px; margin: 15px 0; }
-.ok { background: #d4edda; color: #155724; }
-.err { background: #f8d7da; color: #721c24; }
 .abas { display: flex; gap: 10px; margin-bottom: 15px; }
 .abas button { flex: 1; background: #bdc3c7; }
 .abas button.ativa { background: #2980b9; }
 .painel { display: none; }
 .painel.ativo { display: block; }
+.aviso { background: #fff3cd; color: #856404; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -34,19 +34,13 @@ th { background: #ecf0f1; }
 
 <div class="abas">
     <button type="button" class="ativa" onclick="mostrarAba('img')">Enviar Imagens</button>
-    <button type="button" onclick="mostrarAba('manual')">Cadastrar Gabarito Manual</button>
+    <button type="button" onclick="mostrarAba('manual')">Gabarito Manual + Cartão do Aluno</button>
 </div>
 
 <!-- ABA IMAGENS -->
 <div id="aba-img" class="painel ativo">
     <h2>Enviar Imagens</h2>
-    <form id="form-img" method="post" action="../backend/processar.php" enctype="multipart/form-data">
-        <label>Nome do aluno</label>
-        <input type="text" name="nome" required>
-
-        <label>Matrícula</label>
-        <input type="text" name="matricula" required>
-
+    <form method="post" action="../backend/processar.php" enctype="multipart/form-data">
         <label>Foto do cartão do aluno</label>
         <input type="file" name="cartao_aluno" accept="image/*" required>
 
@@ -59,26 +53,22 @@ th { background: #ecf0f1; }
 
 <!-- ABA MANUAL -->
 <div id="aba-manual" class="painel">
-    <h2>Cadastrar Gabarito Manual (45 questões)</h2>
-    <form id="form-manual" method="post" action="../backend/processar.php">
+    <h2>Gabarito Oficial (salvo entre correções)</h2>
+    <div class="aviso">Digite o gabarito uma vez e clique em <strong>Salvar Gabarito</strong>. Ele ficará salvo para todas as próximas correções.</div>
+
+    <table>
+        <tr><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th></tr>
+        <tbody id="tabela-gabarito"></tbody>
+    </table>
+
+    <button type="button" class="secundario" onclick="salvarGabarito()">Salvar Gabarito</button>
+    <div id="status-gabarito" style="margin-top:10px;font-size:13px;"></div>
+
+    <h2>Corrigir Cartão do Aluno</h2>
+    <form method="post" action="../backend/processar.php" enctype="multipart/form-data">
         <input type="hidden" name="modo" value="manual">
-        <label>Nome do aluno</label>
-        <input type="text" name="nome" required>
-        <label>Matrícula</label>
-        <input type="text" name="matricula" required>
-
-        <label>Gabarito oficial</label>
-        <table>
-            <tr><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th></tr>
-            <tbody id="tabela-gabarito"></tbody>
-        </table>
-
-        <h2>Respostas do aluno</h2>
-        <table>
-            <tr><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th></tr>
-            <tbody id="tabela-aluno"></tbody>
-        </table>
-
+        <label>Foto do cartão do aluno</label>
+        <input type="file" name="cartao_aluno" accept="image/*" required>
         <button type="submit">Corrigir</button>
     </form>
 </div>
@@ -92,17 +82,19 @@ function mostrarAba(id) {
     event.target.classList.add('ativa');
 }
 
-function criarTabela(tbodyId, prefixo) {
+function criarTabela(tbodyId, prefixo, valores) {
     const tbody = document.getElementById(tbodyId);
     let html = '';
     for (let i = 1; i <= 15; i++) {
         html += '<tr>';
         for (let c = 0; c < 3; c++) {
             const q = i + (c * 15);
+            const atual = valores && valores[q] ? valores[q] : '';
             html += '<td>' + q + '</td><td><select name="' + prefixo + q + '">';
             html += '<option value="">-</option>';
             ['A','B','C','D','E'].forEach(a => {
-                html += '<option value="' + a + '">' + a + '</option>';
+                const sel = (atual === a) ? ' selected' : '';
+                html += '<option value="' + a + '"' + sel + '>' + a + '</option>';
             });
             html += '</select></td>';
         }
@@ -110,8 +102,37 @@ function criarTabela(tbodyId, prefixo) {
     }
     tbody.innerHTML = html;
 }
-criarTabela('tabela-gabarito', 'gab');
-criarTabela('tabela-aluno', 'aluno');
+
+async function carregarGabarito() {
+    try {
+        const r = await fetch('../backend/carregar_gabarito.php');
+        const dados = await r.json();
+        criarTabela('tabela-gabarito', 'gab', dados.gabarito || {});
+    } catch (e) {
+        criarTabela('tabela-gabarito', 'gab', {});
+    }
+}
+
+async function salvarGabarito() {
+    const form = new FormData();
+    for (let i = 1; i <= 45; i++) {
+        const sel = document.querySelector('select[name="gab' + i + '"]');
+        form.append('gab' + i, sel ? sel.value : '');
+    }
+    const status = document.getElementById('status-gabarito');
+    status.textContent = 'Salvando...';
+    try {
+        const r = await fetch('../backend/salvar_gabarito.php', { method: 'POST', body: form });
+        const dados = await r.json();
+        status.textContent = dados.ok ? '✓ Gabarito salvo.' : ('Erro: ' + (dados.erro || 'desconhecido'));
+        status.style.color = dados.ok ? '#155724' : '#721c24';
+    } catch (e) {
+        status.textContent = 'Erro ao salvar: ' + e.message;
+        status.style.color = '#721c24';
+    }
+}
+
+carregarGabarito();
 </script>
 </body>
 </html>

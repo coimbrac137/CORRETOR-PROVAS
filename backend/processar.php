@@ -6,54 +6,52 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$nome = trim($_POST['nome'] ?? '');
-$matricula = trim($_POST['matricula'] ?? '');
 $modo = $_POST['modo'] ?? 'imagem';
-
-if ($nome === '' || $matricula === '') {
-    die('Nome e matrícula são obrigatórios.');
-}
-
 $id = gerar_id();
 
 if ($modo === 'manual') {
-    $gabarito = [];
-    $aluno = [];
-    for ($i = 1; $i <= 45; $i++) {
-        $g = strtoupper(trim($_POST['gab' . $i] ?? ''));
-        $a = strtoupper(trim($_POST['aluno' . $i] ?? ''));
-        $gabarito[$i] = in_array($g, ['A','B','C','D','E']) ? $g : '';
-        $aluno[$i] = in_array($a, ['A','B','C','D','E']) ? $a : '';
+    // Carrega gabarito salvo
+    $arquivoGab = TMP_DIR . '/gabarito_oficial.json';
+    if (!file_exists($arquivoGab)) {
+        die('Nenhum gabarito salvo. Salve o gabarito antes de corrigir.');
+    }
+    $gabaritoSalvo = json_decode(file_get_contents($arquivoGab), true) ?: [];
+    if (count($gabaritoSalvo) !== 45) {
+        die('Gabarito salvo incompleto. Salve novamente.');
     }
 
-    $acertos = 0;
-    $detalhes = [];
-    for ($i = 1; $i <= 45; $i++) {
-        $acertou = ($gabarito[$i] !== '' && $gabarito[$i] === $aluno[$i]);
-        if ($acertou) $acertos++;
-        $detalhes[$i] = [
-            'gabarito' => $gabarito[$i],
-            'aluno' => $aluno[$i],
-            'acertou' => $acertou
-        ];
+    if (!isset($_FILES['cartao_aluno']) || $_FILES['cartao_aluno']['error'] !== UPLOAD_ERR_OK) {
+        die('Envie a foto do cartão do aluno.');
     }
 
-    $resultado = [
-        'nome' => $nome,
-        'matricula' => $matricula,
-        'acertos' => $acertos,
-        'erros' => 45 - $acertos,
-        'nota' => round(($acertos / 45) * 10, 2),
-        'percentual' => round(($acertos / 45) * 100, 2),
-        'detalhes' => $detalhes
-    ];
+    $ext = strtolower(pathinfo($_FILES['cartao_aluno']['name'], PATHINFO_EXTENSION));
+    if (!in_array($ext, ['jpg','jpeg','png'])) {
+        die('Formato inválido. Use JPG ou PNG.');
+    }
 
-    file_put_contents(TMP_DIR . '/' . $id . '.json', json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    $imgAluno = TMP_DIR . '/' . $id . '_aluno.' . $ext;
+    move_uploaded_file($_FILES['cartao_aluno']['tmp_name'], $imgAluno);
+
+    $script = PYTHON_DIR . '/ler_cartao.py';
+    $cmd = escapeshellcmd(PYTHON_BIN) . ' ' . escapeshellarg($script)
+         . ' --aluno ' . escapeshellarg($imgAluno)
+         . ' --gabarito-json ' . escapeshellarg($arquivoGab)
+         . ' --saida ' . escapeshellarg(TMP_DIR . '/' . $id . '.json')
+         . ' 2>&1';
+
+    $output = shell_exec($cmd);
+
+    if (!file_exists(TMP_DIR . '/' . $id . '.json')) {
+        limpar_arquivo($imgAluno);
+        die('<pre>Erro ao processar imagem. Saída Python:' . "\n" . htmlspecialchars($output) . '</pre>');
+    }
+
+    limpar_arquivo($imgAluno);
     header('Location: ../frontend/ver.php?id=' . $id);
     exit;
 }
 
-// MODO IMAGEM
+// MODO IMAGEM (2 fotos)
 if (!isset($_FILES['cartao_aluno']) || !isset($_FILES['cartao_gabarito'])) {
     die('Envie as duas imagens.');
 }
@@ -80,8 +78,6 @@ $script = PYTHON_DIR . '/ler_cartao.py';
 $cmd = escapeshellcmd(PYTHON_BIN) . ' ' . escapeshellarg($script)
      . ' --aluno ' . escapeshellarg($imgAluno)
      . ' --gabarito ' . escapeshellarg($imgGab)
-     . ' --nome ' . escapeshellarg($nome)
-     . ' --matricula ' . escapeshellarg($matricula)
      . ' --saida ' . escapeshellarg(TMP_DIR . '/' . $id . '.json')
      . ' 2>&1';
 

@@ -14,10 +14,6 @@ except ImportError:
 
 
 def ler_cartao(caminho_imagem):
-    """
-    Detecta marcações em um cartão-resposta.
-    Retorna dict {questao: 'A'|'B'|'C'|'D'|'E'|''} para 45 questões.
-    """
     img = cv2.imread(caminho_imagem)
     if img is None:
         erro(f"Não foi possível abrir a imagem: {caminho_imagem}")
@@ -49,7 +45,6 @@ def ler_cartao(caminho_imagem):
 
     bolinhas.sort(key=lambda b: (b['y'], b['x']))
 
-    # agrupa em linhas
     linhas = []
     linha_atual = []
     y_ref = bolinhas[0]['y']
@@ -65,25 +60,21 @@ def ler_cartao(caminho_imagem):
     if linha_atual:
         linhas.append(linha_atual)
 
-    # mantém apenas linhas com pelo menos 3 bolinhas
     linhas = [l for l in linhas if len(l) >= 3]
 
     if len(linhas) < 45:
         erro(f"Detectei {len(linhas)} linhas. Esperado 45. Ajuste o enquadramento.")
 
-    # pega as 45 primeiras linhas válidas
     linhas = linhas[:45]
 
     respostas = {}
     for idx, linha in enumerate(linhas, start=1):
         linha.sort(key=lambda b: b['x'])
-        # pega até 5 bolinhas dessa linha (A-E)
         alternativas = linha[:5]
         if len(alternativas) < 5:
             respostas[idx] = ''
             continue
 
-        # mede densidade de preenchimento de cada bolinha
         densidades = []
         for b in alternativas:
             x, y, r = int(b['x']), int(b['y']), int(b['r'])
@@ -95,10 +86,8 @@ def ler_cartao(caminho_imagem):
                 continue
             densidades.append(float(np.mean(roi)))
 
-        # a bolinha marcada = MENOR média de cinza (mais escura)
         media_geral = np.mean(densidades)
         marcada_idx = int(np.argmin(densidades))
-        # só considera marcada se for significativamente mais escura
         if densidades[marcada_idx] < media_geral - 15:
             letras = ['A', 'B', 'C', 'D', 'E']
             respostas[idx] = letras[marcada_idx]
@@ -108,17 +97,28 @@ def ler_cartao(caminho_imagem):
     return respostas
 
 
+def extrair_nome_matricula(caminho_imagem):
+    return '', ''
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--aluno', required=True)
-    parser.add_argument('--gabarito', required=True)
-    parser.add_argument('--nome', required=True)
-    parser.add_argument('--matricula', required=True)
+    parser.add_argument('--gabarito')
+    parser.add_argument('--gabarito-json')
     parser.add_argument('--saida', required=True)
     args = parser.parse_args()
 
     respostas_aluno = ler_cartao(args.aluno)
-    respostas_gabarito = ler_cartao(args.gabarito)
+
+    if args.gabarito_json:
+        with open(args.gabarito_json, 'r', encoding='utf-8') as f:
+            respostas_gabarito_raw = json.load(f)
+        respostas_gabarito = {int(k): v for k, v in respostas_gabarito_raw.items()}
+    else:
+        respostas_gabarito = ler_cartao(args.gabarito)
+
+    nome, matricula = extrair_nome_matricula(args.aluno)
 
     acertos = 0
     detalhes = {}
@@ -135,8 +135,8 @@ def main():
         }
 
     resultado = {
-        'nome': args.nome,
-        'matricula': args.matricula,
+        'nome': nome,
+        'matricula': matricula,
         'acertos': acertos,
         'erros': 45 - acertos,
         'nota': round((acertos / 45) * 10, 2),
