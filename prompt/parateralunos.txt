@@ -11,3 +11,17 @@ FORMATO DE SAÍDA EXIGIDO (responda EXATAMENTE assim, uma linha por aluno, sem t
 Nome do Aluno: C B C A B B D A C B D C B B D C C A D B B B A D A A D C C D C A C B B D A D B A B A B A C
 
 (Substitua "Nome do Aluno" pelo nome lido na imagem e a sequência de letras pelas 45 respostas. Se houver mais de uma imagem, pule uma linha e coloque o próximo aluno).
+
+======================
+O que fazer cara voce realmente precisa achar um jeito de 
+
+manda para ia e ela conseguir trazer estas informaçoes para voce muito acertiva 
+
+ou voce achar um jeito de validação 4 fatores ja que ela pode erra umas 3 
+
+verificação em 4 fatores com prompts diferentes e comparando respostas e encontrando respostas que estão 
+
+diferentes 
+
+ou para aumentar a precisão assim verificando coluna por culuna e fazer a comparação delas 
+
