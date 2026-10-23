@@ -1,14 +1,16 @@
-
 ESTRUTURA DO PROJETO: 
 
 CORRETOR-PROVAS/
 ├── frontend/
 │   ├── index.html      → upload das imagens + cadastro manual
-│   └── ver.php         → resultado + download JSON
+│   └── ver_turma.php         → resultado + download JSON
 ├── backend/
 │   ├── config.php
 │   ├── processar.php   → recebe imagens e chama o Python
 │   └── baixar_json.php
+|   |__carregar_gabarito.php
+|   |__salvar_gabarito.php
+| 
 └── visao_computacional/
     ├── ler_cartao.py
     └── requirements.txt
