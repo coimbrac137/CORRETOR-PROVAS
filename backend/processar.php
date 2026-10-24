@@ -29,17 +29,20 @@ if ($modo === 'lote') {
     $resultadosTurma = [];
 
     foreach ($linhas as $linha) {
-        $partes = explode(':', $linha, 2);
-        if (count($partes) == 2) {
-            $nome = trim($partes[0]);
-            $respostas_texto = strtoupper(trim($partes[1]));
-        } else {
+        // Extrai respostas (letras A-D) e o que sobra é o nome
+        preg_match_all('/\b([ABCD])\b/i', $linha, $matches);
+        $letras = array_map('strtoupper', $matches[0]);
+
+        // Remove as letras da linha para obter o nome
+        $nome = preg_replace('/\b[ABCD]\b/i', ' ', $linha);
+        $nome = preg_replace('/^Nome do Aluno\s*:\s*/i', '', $nome);
+        $nome = preg_replace('/^Nome\s*:\s*/i', '', $nome);
+        $nome = trim(preg_replace('/\s+/', ' ', $nome));
+
+        if (empty($nome)) {
             $nome = 'Aluno ' . (count($resultadosTurma) + 1);
-            $respostas_texto = strtoupper(trim($linha));
         }
 
-        preg_match_all('/[ABCD]/', $respostas_texto, $matches);
-        $letras = $matches[0];
         if (count($letras) < 45) {
             continue;
         }
@@ -64,7 +67,7 @@ if ($modo === 'lote') {
             'matricula' => '',
             'acertos' => $acertos,
             'erros' => 45 - $acertos,
-            'nota' => round(($acertos / 45) * 10, 2),
+            'nota' => $acertos,
             'percentual' => round(($acertos / 45) * 100, 2),
             'detalhes' => $detalhes
         ];
@@ -126,7 +129,7 @@ if ($modo === 'imagem') {
         'matricula' => '',
         'acertos' => $acertos,
         'erros' => 45 - $acertos,
-        'nota' => round(($acertos / 45) * 10, 2),
+        'nota' => $acertos,
         'percentual' => round(($acertos / 45) * 100, 2),
         'detalhes' => $detalhes
     ]];

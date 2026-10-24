@@ -43,6 +43,7 @@ th { background: #ecf0f1; }
 .resumo-aluno div { text-align: center; }
 .resumo-aluno strong { display: block; font-size: 12px; color: #555; }
 .resumo-aluno span { font-size: 16px; font-weight: bold; }
+.nome-aluno { text-align: left; }
 @media print {
     @page { margin: 15mm; }
     body { background: #fff; padding: 0; font-size: 12px; }
@@ -88,7 +89,7 @@ th { background: #ecf0f1; }
             </tr>
             <?php foreach ($resultados as $index => $aluno): ?>
             <tr class="linha-aluno">
-                <td style="text-align: left;"><?= htmlspecialchars($aluno['nome']) ?></td>
+                <td class="nome-aluno"><?= htmlspecialchars($aluno['nome']) ?></td>
                 <td><?= $aluno['acertos'] ?> / 45</td>
                 <td><?= $aluno['erros'] ?> / 45</td>
                 <td><strong><?= number_format($aluno['nota'], 2) ?></strong></td>

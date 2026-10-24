@@ -20,6 +20,8 @@ button.secundario { background: #27ae60; }
 button.secundario:hover { background: #1e8449; }
 button.alerta { background: #e67e22; }
 button.alerta:hover { background: #ca6f1e; }
+button.minoria { background: #8e44ad; }
+button.minoria:hover { background: #6c3483; }
 button:disabled { background: #95a5a6; cursor: not-allowed; }
 table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 th, td { border: 1px solid #ddd; padding: 6px 8px; font-size: 13px; text-align: center; }
@@ -44,8 +46,10 @@ th { background: #ecf0f1; }
 .padrao-box { background: #fef5e7; border: 1px solid #f5cba7; padding: 10px; border-radius: 4px; margin-top: 8px; }
 .padrao-box strong { color: #b9770e; }
 .padrao-item { padding: 4px 0; font-size: 12px; }
-.btn-padrao { background: #e67e22; padding: 6px 10px; font-size: 12px; margin-top: 6px; }
+.btn-padrao { background: #e67e22; padding: 6px 10px; font-size: 12px; margin-top: 6px; margin-right: 6px; }
 .btn-padrao:hover { background: #ca6f1e; }
+.btn-minoria { background: #8e44ad; padding: 6px 10px; font-size: 12px; margin-top: 6px; }
+.btn-minoria:hover { background: #6c3483; }
 .faltando-box { background: #fdecea; border: 1px solid #f5b7b1; padding: 10px; border-radius: 4px; margin-top: 8px; font-size: 12px; }
 .faltando-box strong { color: #943126; }
 .faltando-item { padding: 3px 0; }
@@ -55,6 +59,10 @@ th { background: #ecf0f1; }
 .nome-fix .botoes { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
 .nome-fix .btn-aplicar { background: #2980b9; padding: 6px 10px; font-size: 12px; }
 .nome-fix .btn-aplicar:hover { background: #21618c; }
+.manual-major { display: flex; gap: 6px; align-items: center; margin-top: 4px; }
+.manual-major select { padding: 4px 6px; font-size: 12px; }
+.manual-major .btn-manual { background: #2980b9; padding: 4px 8px; font-size: 12px; }
+.manual-major .btn-manual:hover { background: #21618c; }
 </style>
 </head>
 <body>
@@ -66,7 +74,6 @@ th { background: #ecf0f1; }
     <button type="button" onclick="mostrarAba('manual')">Colar Respostas (Manual)</button>
 </div>
 
-<!-- ABA COMPARAR LISTAS -->
 <div id="aba-img" class="painel ativo">
     <h2>Comparar Listas (4 campos)</h2>
     <div class="aviso">Cole as quatro listas abaixo. O nome e a sequência de respostas serão comparados de forma rígida entre os campos.</div>
@@ -102,7 +109,6 @@ th { background: #ecf0f1; }
     </div>
 </div>
 
-<!-- ABA MANUAL -->
 <div id="aba-manual" class="painel">
     <h2>Gabarito Oficial (salvo entre correções)</h2>
     <div class="aviso">Digite o gabarito uma vez e clique em <strong>Salvar Gabarito</strong>. Ele ficará salvo para todas as próximas correções.</div>
@@ -188,21 +194,19 @@ async function salvarGabarito() {
     }
 }
 
-// ---------- PARSER ----------
-function parseLista(texto) {
-    const mapa = new Map();
+function limparNome(nome) {
+    return nome.replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function parseListaOrdenada(texto) {
+    const alunos = [];
     const linhas = texto.split('\n');
     let nomeAtual = null;
     let respAtual = [];
 
     function fechar() {
-        if (nomeAtual && respAtual.length > 0) {
-            if (mapa.has(nomeAtual)) {
-                const atual = mapa.get(nomeAtual);
-                mapa.set(nomeAtual, atual.concat(respAtual));
-            } else {
-                mapa.set(nomeAtual, respAtual.slice());
-            }
+        if (nomeAtual !== null && respAtual.length > 0) {
+            alunos.push({ nome: nomeAtual, respostas: respAtual.slice() });
         }
         nomeAtual = null;
         respAtual = [];
@@ -215,17 +219,19 @@ function parseLista(texto) {
         const mNome = limpa.match(/^(?:Nome do Aluno|Nome)\s*:\s*(.+)$/i);
         if (mNome) {
             fechar();
-            nomeAtual = mNome[1].trim().replace(/\s+/g, ' ');
+            nomeAtual = limparNome(mNome[1]);
+            const inline = (mNome[1].match(/\b[ABCD]\b/gi) || []).map(x => x.toUpperCase());
+            respAtual = inline;
             continue;
         }
 
         const mNum = limpa.match(/^(\d+)\s*[\.\)\-]\s*([A-Za-z])\b/);
-        if (mNum && nomeAtual) {
+        if (mNum && nomeAtual !== null) {
             respAtual.push(mNum[2].toUpperCase());
             continue;
         }
 
-        if (nomeAtual) {
+        if (nomeAtual !== null) {
             const letras = limpa.match(/\b[A-Za-z]\b/g);
             if (letras) {
                 letras.forEach(l => respAtual.push(l.toUpperCase()));
@@ -233,18 +239,26 @@ function parseLista(texto) {
         }
     }
     fechar();
-    return mapa;
+    return alunos;
 }
 
 function chaveNome(nome) {
-    return nome
+    return limparNome(nome)
         .toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .replace(/\([^)]*\)/g, '')
         .replace(/\b(sobrenome|conferir|a confirmar|leitura do nome manuscrito|grafia)\b/gi, '')
         .replace(/[^a-z\s]/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
+}
+
+function nomesParecidos(a, b) {
+    const pa = chaveNome(a).split(' ').filter(x => x.length > 2);
+    const pb = chaveNome(b).split(' ').filter(x => x.length > 2);
+    if (pa.length === 0 || pb.length === 0) return 0;
+    let comuns = 0;
+    pa.forEach(p => { if (pb.includes(p)) comuns++; });
+    return comuns / Math.max(pa.length, pb.length);
 }
 
 function compararListas() {
@@ -254,23 +268,10 @@ function compararListas() {
         document.getElementById('comp3').value,
         document.getElementById('comp4').value
     ];
-    const listas = textos.map(parseLista);
+    const listasAlunos = textos.map(parseListaOrdenada);
     listasGlobais = textos;
 
-    const grupos = new Map();
-    for (let k = 0; k < listas.length; k++) {
-        listas[k].forEach((resp, nome) => {
-            const chave = chaveNome(nome);
-            if (!chave) return;
-            if (!grupos.has(chave)) {
-                grupos.set(chave, { nomes: new Set(), respostas: Array.from({length: listas.length}, () => null) });
-            }
-            const g = grupos.get(chave);
-            g.nomes.add(nome);
-            if (!g.respostas[k]) g.respostas[k] = resp;
-            else g.respostas[k] = g.respostas[k].concat(resp);
-        });
-    }
+    const totalMax = Math.max(...listasAlunos.map(l => l.length));
 
     const resultado = document.getElementById('resultado-comp');
     resultado.style.display = 'block';
@@ -280,65 +281,40 @@ function compararListas() {
     document.getElementById('btn-exportar').disabled = true;
     document.getElementById('btn-copiar').disabled = true;
 
-    if (grupos.size === 0) {
+    if (totalMax === 0) {
         resultado.innerHTML = '<div class="erro">Nenhum aluno encontrado nas listas.</div>';
         return;
     }
 
-    const chavesOrdenadas = [...grupos.keys()].sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }));
     const corrigidos = new Map();
     let tudoIgual = true;
 
-    for (const chave of chavesOrdenadas) {
-        const grupo = grupos.get(chave);
-        const respostas = grupo.respostas;
-        const nomesArr = [...grupo.nomes];
+    for (let pos = 0; pos < totalMax; pos++) {
+        const presentes = listasAlunos.map(l => l[pos] || null);
+        const primeiroPresente = presentes.find(p => p);
+        const nomeRef = primeiroPresente.nome;
 
         const div = document.createElement('div');
         div.className = 'item';
-        div.dataset.nome = chave;
 
-        const contNome = {};
-        listas.forEach((lista) => {
-            lista.forEach((_, nome) => {
-                const c = chaveNome(nome);
-                if (c === chave) contNome[nome] = (contNome[nome] || 0) + 1;
-            });
-        });
-        let nomeCanonico = nomesArr[0];
-        let melhor = -1;
-        for (const n of nomesArr) {
-            const score = (contNome[n] || 0) * 1000 + n.length;
-            if (score > melhor) { melhor = score; nomeCanonico = n; }
-        }
+        let html = '<strong>Posição ' + (pos + 1) + ' — ' + nomeRef + '</strong>';
 
         const faltando = [];
-        respostas.forEach((r, i) => { if (!r) faltando.push(i); });
-
-        let html = '<strong>' + nomeCanonico + '</strong>';
-
+        presentes.forEach((p, i) => { if (!p) faltando.push(i); });
         if (faltando.length > 0) {
             html += ': <span class="erro">Nome não encontrado em: ' +
                 faltando.map(i => 'Lista ' + (i + 1)).join(', ') + '</span>';
 
-            const variacoes = nomesArr.filter(n => n !== nomeCanonico);
-            if (variacoes.length > 0) {
-                html += '<div class="faltando-box"><strong>Variações de grafia detectadas:</strong>';
-                variacoes.forEach(v => {
-                    const ondeAparece = [];
-                    listas.forEach((lista, idx) => {
-                        lista.forEach((_, nome) => {
-                            if (nome === v) ondeAparece.push('Lista ' + (idx + 1));
-                        });
-                    });
-                    html += '<div class="faltando-item">“' + v + '” → ' + [...new Set(ondeAparece)].join(', ') + '</div>';
-                });
-                html += '</div>';
+            html += '<div class="faltando-box"><strong>Nome nesta mesma posição em cada lista:</strong>';
+            for (let k = 0; k < 4; k++) {
+                const nomeNaPos = presentes[k] ? presentes[k].nome : '(sem aluno nesta posição)';
+                const bate = presentes[k] && nomesParecidos(nomeNaPos, nomeRef) >= 0.7;
+                html += '<div class="faltando-item">Lista ' + (k + 1) + ': “' + nomeNaPos + '”' + (bate ? ' ✓' : ' ✗') + '</div>';
             }
+            html += '</div>';
 
-            // Campo para corrigir nome em todas as listas
-            html += '<div class="nome-fix"><strong>Corrigir nome em todas as listas:</strong>' +
-                '<input type="text" class="input-nome" data-chave="' + encodeURIComponent(chave) + '" value="' + nomeCanonico.replace(/"/g, '&quot;') + '">' +
+            html += '<div class="nome-fix"><strong>Digite o nome correto:</strong>' +
+                '<input type="text" class="input-nome" data-pos="' + pos + '" value="' + nomeRef.replace(/"/g, '&quot;') + '">' +
                 '<div class="botoes"><button type="button" class="btn-aplicar" onclick="aplicarNome(this)">Aplicar nome</button></div>' +
                 '</div>';
 
@@ -348,11 +324,40 @@ function compararListas() {
             continue;
         }
 
+        let todosNomesIguais = true;
+        for (let i = 1; i < 4; i++) {
+            if (nomesParecidos(presentes[i].nome, nomeRef) < 0.7) {
+                todosNomesIguais = false;
+                break;
+            }
+        }
+        if (!todosNomesIguais) {
+            html += ': <span class="erro">✗ Nomes diferentes detectados</span>';
+            html += '<div class="faltando-box"><strong>Nomes nesta mesma posição:</strong>';
+            for (let k = 0; k < 4; k++) {
+                const bate = nomesParecidos(presentes[k].nome, nomeRef) >= 0.7;
+                html += '<div class="faltando-item">Lista ' + (k + 1) + ': “' + presentes[k].nome + '”' + (bate ? ' ✓' : ' ✗') + '</div>';
+            }
+            html += '</div>';
+
+            html += '<div class="nome-fix"><strong>Digite o nome correto:</strong>' +
+                '<input type="text" class="input-nome" data-pos="' + pos + '" value="' + nomeRef.replace(/"/g, '&quot;') + '">' +
+                '<div class="botoes"><button type="button" class="btn-aplicar" onclick="aplicarNome(this)">Aplicar nome</button></div>' +
+                '</div>';
+
+            div.innerHTML = html;
+            resultado.appendChild(div);
+            tudoIgual = false;
+            continue;
+        }
+
+        const respostas = presentes.map(p => p.respostas);
         const tamanhos = respostas.map(r => r.length);
         const tamIgual = tamanhos.every(t => t === tamanhos[0]);
         if (!tamIgual) {
-            div.innerHTML = '<strong>' + nomeCanonico + '</strong>: <span class="erro">Quantidade de respostas diferente (' +
+            html += ': <span class="erro">Quantidade de respostas diferente (' +
                 tamanhos.join(', ') + ')</span>';
+            div.innerHTML = html;
             resultado.appendChild(div);
             tudoIgual = false;
             continue;
@@ -372,27 +377,58 @@ function compararListas() {
                 const maxVotos = Math.max(...Object.values(contagem));
                 const vencedores = Object.keys(contagem).filter(k => contagem[k] === maxVotos);
                 const temPadrao = maxVotos >= 3 && vencedores.length === 1;
-                padroes.push({ questao: i + 1, valores, maioria: temPadrao ? vencedores[0] : null, temPadrao });
+                const minorias = Object.keys(contagem).filter(k => k !== (vencedores.length === 1 ? vencedores[0] : null));
+
+                padroes.push({ questao: i + 1, valores, maioria: temPadrao ? vencedores[0] : null, temPadrao, contagem, minorias });
             }
         }
 
         if (divergencias.length === 0) {
-            html += ': <span class="ok">✓ IGUAIS nos ' + respostas.length + ' campos (' + respostas[0].length + ' respostas)</span>';
-            corrigidos.set(nomeCanonico, respostas[0]);
+            html += ': <span class="ok">✓ IGUAIS nos 4 campos (' + respostas[0].length + ' respostas)</span>';
+            corrigidos.set(nomeRef, respostas[0]);
         } else {
-            html += ': <span class="erro">✗ Diferente</span><br>' +
+            html += '<br><span class="erro">✗ Diferente</span><br>' +
                 '<span style="font-size:12px;">Divergências: ' + divergencias.join(' | ') + '</span>';
+
+            html += '<div class="padrao-box"><strong>⚠ Resumo das divergências (contagem de votos):</strong>';
+            padroes.forEach(p => {
+                const det = p.valores.map((v, idx) => 'L' + (idx + 1) + '=' + v).join(', ');
+                const votos = Object.entries(p.contagem).map(([k, v]) => k + ':' + v).join(' | ');
+                let status = '';
+                if (p.temPadrao) {
+                    const minStr = p.minorias.length > 0 ? p.minorias.join(', ') : '-';
+                    status = 'Maioria: <strong>' + p.maioria + '</strong> | Minoria: <strong>' + minStr + '</strong>';
+                } else {
+                    // sem maioria clara -> mostra select para escolher manualmente
+                    status = '<span style="color:#721c24">Sem maioria clara</span>';
+                }
+                html += '<div class="padrao-item">Q' + p.questao + ' → ' + det + ' <br>Votos: ' + votos + ' → ' + status;
+
+                // Se sem maioria clara, oferece select manual
+                if (!p.temPadrao) {
+                    html += '<div class="manual-major">' +
+                        '<select class="select-manual" data-pos="' + pos + '" data-q="' + p.questao + '">' +
+                        '<option value="">Escolher...</option>' +
+                        '<option value="A">A</option>' +
+                        '<option value="B">B</option>' +
+                        '<option value="C">C</option>' +
+                        '<option value="D">D</option>' +
+                        '</select>' +
+                        '<button type="button" class="btn-manual" onclick="aplicarManual(this)">Aplicar</button>' +
+                        '</div>';
+                }
+
+                html += '</div>';
+            });
 
             const comPadrao = padroes.filter(p => p.temPadrao);
             if (comPadrao.length > 0) {
-                html += '<div class="padrao-box"><strong>⚠ Padrão detectado pela maioria:</strong>';
-                comPadrao.forEach(p => {
-                    const det = p.valores.map((v, idx) => 'L' + (idx + 1) + '=' + v).join(', ');
-                    html += '<div class="padrao-item">Q' + p.questao + ' → ' + det + ' | Maioria: <strong>' + p.maioria + '</strong></div>';
-                });
-                html += '<button type="button" class="btn-padrao" data-nome="' + encodeURIComponent(nomeCanonico) + '" onclick="aceitarPadrao(this)">Aceitar padrão pela maioria</button>';
+                html += '<div>';
+                html += '<button type="button" class="btn-padrao" data-pos="' + pos + '" onclick="aceitarPadrao(this)">Aceitar maioria</button>';
+                html += '<button type="button" class="btn-minoria" data-pos="' + pos + '" onclick="aceitarMinoria(this)">Aceitar minoria</button>';
                 html += '</div>';
             }
+            html += '</div>';
             tudoIgual = false;
         }
 
@@ -406,110 +442,30 @@ function compararListas() {
     }
 }
 
-// Aplica o nome digitado em todas as listas onde a chave bater
 function aplicarNome(btn) {
     const wrapper = btn.closest('.nome-fix');
     const input = wrapper.querySelector('.input-nome');
-    const chave = decodeURIComponent(input.dataset.chave);
+    const pos = parseInt(input.dataset.pos, 10);
     const novoNome = input.value.trim().replace(/\s+/g, ' ');
-    if (!novoNome) return;
+    if (!novoNome) { alert('Digite um nome.'); return; }
 
     for (let k = 0; k < 4; k++) {
-        let texto = listasGlobais[k];
-        const linhas = texto.split('\n');
-        const novasLinhas = [];
-        for (const linha of linhas) {
-            const limpa = linha.trim();
-            const mNome = limpa.match(/^(?:Nome do Aluno|Nome)\s*:\s*(.+)$/i);
-            if (mNome) {
-                const nomeLinha = mNome[1].trim().replace(/\s+/g, ' ');
-                if (chaveNome(nomeLinha) === chave) {
-                    const prefixo = linha.substring(0, linha.indexOf(':') + 1);
-                    novasLinhas.push(prefixo + ' ' + novoNome);
-                    continue;
-                }
-            }
-            novasLinhas.push(linha);
-        }
-        listasGlobais[k] = novasLinhas.join('\n');
-    }
-
-    document.getElementById('comp1').value = listasGlobais[0];
-    document.getElementById('comp2').value = listasGlobais[1];
-    document.getElementById('comp3').value = listasGlobais[2];
-    document.getElementById('comp4').value = listasGlobais[3];
-
-    // Re-compara e libera botão de comparar
-    compararListas();
-    document.getElementById('btn-exportar').disabled = true;
-    document.getElementById('btn-copiar').disabled = true;
-    document.getElementById('saida-export').style.display = 'none';
-}
-
-function aceitarPadrao(btn) {
-    const nomeCanonico = decodeURIComponent(btn.dataset.nome);
-    if (!listasGlobais) return;
-
-    const mapas = listasGlobais.map(parseLista);
-    const alvoChave = chaveNome(nomeCanonico);
-    const respostas = mapas.map(m => {
-        let encontrado = null;
-        m.forEach((r, nome) => {
-            if (chaveNome(nome) === alvoChave) encontrado = r;
-        });
-        return encontrado;
-    });
-    if (respostas.some(r => !r)) return;
-    const tam = respostas[0].length;
-    if (!respostas.every(r => r.length === tam)) return;
-
-    for (let i = 0; i < tam; i++) {
-        const valores = respostas.map(r => r[i]);
-        const todosIguais = valores.every(v => v === valores[0]);
-        if (todosIguais) continue;
-        const contagem = {};
-        valores.forEach(v => { contagem[v] = (contagem[v] || 0) + 1; });
-        const maxVotos = Math.max(...Object.values(contagem));
-        const vencedores = Object.keys(contagem).filter(k => contagem[k] === maxVotos);
-        if (maxVotos >= 3 && vencedores.length === 1) {
-            respostas.forEach(r => { r[i] = vencedores[0]; });
-        }
-    }
-
-    for (let k = 0; k < 4; k++) {
-        let texto = listasGlobais[k];
-        const novaSeq = respostas[k];
-        const linhas = texto.split('\n');
-        const novasLinhas = [];
-        let dentro = false;
-        let idxResp = 0;
+        const linhas = listasGlobais[k].split('\n');
+        let cont = 0;
         for (let i = 0; i < linhas.length; i++) {
             const limpa = linhas[i].trim();
             const mNome = limpa.match(/^(?:Nome do Aluno|Nome)\s*:\s*(.+)$/i);
-            if (mNome) {
-                const nomeLinha = mNome[1].trim().replace(/\s+/g, ' ');
-                dentro = (chaveNome(nomeLinha) === alvoChave);
-                novasLinhas.push(linhas[i]);
-                idxResp = 0;
-                continue;
+            if (!mNome) continue;
+            if (cont === pos) {
+                const respostasInline = (mNome[1].match(/\b[ABCD]\b/gi) || []).map(x => x.toUpperCase());
+                let novaLinha = 'Nome do Aluno: ' + novoNome;
+                if (respostasInline.length > 0) novaLinha += ' ' + respostasInline.join(' ');
+                linhas[i] = novaLinha;
+                break;
             }
-            if (dentro) {
-                const mNum = limpa.match(/^(\d+)\s*[\.\)\-]\s*([A-Za-z])\b/);
-                if (mNum) {
-                    novasLinhas.push(linhas[i].replace(/[A-Za-z]\b/, novaSeq[idxResp] || ''));
-                    idxResp++;
-                    continue;
-                }
-                const mLetras = limpa.match(/\b[A-Za-z]\b/g);
-                if (mLetras) {
-                    const nova = limpa.replace(/\b[A-Za-z]\b/g, () => novaSeq[idxResp++] || '');
-                    novasLinhas.push(nova);
-                    continue;
-                }
-            }
-            novasLinhas.push(linhas[i]);
+            cont++;
         }
-        listasGlobais[k] = novasLinhas.join('\n');
+        listasGlobais[k] = linhas.join('\n');
     }
 
     document.getElementById('comp1').value = listasGlobais[0];
@@ -518,6 +474,166 @@ function aceitarPadrao(btn) {
     document.getElementById('comp4').value = listasGlobais[3];
 
     compararListas();
+}
+
+function aplicarValoresFinais(pos, valoresFinais) {
+    for (let k = 0; k < 4; k++) {
+        const linhas = listasGlobais[k].split('\n');
+        let contAluno = 0;
+        let dentro = false;
+        let idxResp = 0;
+
+        for (let i = 0; i < linhas.length; i++) {
+            const limpa = linhas[i].trim();
+            if (!limpa) continue;
+
+            const mNome = limpa.match(/^(?:Nome do Aluno|Nome)\s*:\s*(.+)$/i);
+            if (mNome) {
+                dentro = (contAluno === pos);
+                idxResp = 0;
+
+                if (dentro) {
+                    const temInline = /\b[ABCD]\b/i.test(mNome[1]);
+                    if (temInline) {
+                        let p = 0;
+                        linhas[i] = linhas[i].replace(/\b[ABCD]\b/gi, (match) => {
+                            const f = valoresFinais[p];
+                            p++;
+                            return f !== null ? f : match;
+                        });
+                        idxResp = p;
+                    }
+                }
+                contAluno++;
+                continue;
+            }
+
+            if (dentro) {
+                const mNum = limpa.match(/^(\d+\s*[\.\)\-]\s*)([A-Za-z])\b/);
+                if (mNum) {
+                    const f = valoresFinais[idxResp];
+                    if (f !== null) {
+                        linhas[i] = linhas[i].replace(/(\d+\s*[\.\)\-]\s*)([A-Za-z])\b/, (mm, prefix) => prefix + f);
+                    }
+                    idxResp++;
+                    continue;
+                }
+
+                const letras = limpa.match(/\b[A-Za-z]\b/g);
+                if (letras) {
+                    linhas[i] = linhas[i].replace(/\b[A-Za-z]\b/g, (match) => {
+                        const f = valoresFinais[idxResp];
+                        idxResp++;
+                        return f !== null ? f : match;
+                    });
+                    continue;
+                }
+            }
+        }
+
+        listasGlobais[k] = linhas.join('\n');
+    }
+
+    document.getElementById('comp1').value = listasGlobais[0];
+    document.getElementById('comp2').value = listasGlobais[1];
+    document.getElementById('comp3').value = listasGlobais[2];
+    document.getElementById('comp4').value = listasGlobais[3];
+
+    compararListas();
+}
+
+function aceitarPadrao(btn) {
+    const pos = parseInt(btn.dataset.pos, 10);
+    if (!listasGlobais) return;
+
+    const listasAlunos = listasGlobais.map(parseListaOrdenada);
+    const presentes = listasAlunos.map(l => l[pos] || null);
+    if (presentes.some(p => !p)) return;
+
+    const respostas = presentes.map(p => p.respostas.slice());
+    const tam = respostas[0].length;
+    if (!respostas.every(r => r.length === tam)) return;
+
+    const valoresFinais = [];
+    for (let i = 0; i < tam; i++) {
+        const vals = respostas.map(r => r[i]);
+        const todosIguais = vals.every(v => v === vals[0]);
+        if (todosIguais) { valoresFinais.push(vals[0]); continue; }
+        const cont = {};
+        vals.forEach(v => { cont[v] = (cont[v] || 0) + 1; });
+        const max = Math.max(...Object.values(cont));
+        const venc = Object.keys(cont).filter(k => cont[k] === max);
+        valoresFinais.push((max >= 3 && venc.length === 1) ? venc[0] : null);
+    }
+
+    aplicarValoresFinais(pos, valoresFinais);
+}
+
+function aceitarMinoria(btn) {
+    const pos = parseInt(btn.dataset.pos, 10);
+    if (!listasGlobais) return;
+
+    const listasAlunos = listasGlobais.map(parseListaOrdenada);
+    const presentes = listasAlunos.map(l => l[pos] || null);
+    if (presentes.some(p => !p)) return;
+
+    const respostas = presentes.map(p => p.respostas.slice());
+    const tam = respostas[0].length;
+    if (!respostas.every(r => r.length === tam)) return;
+
+    const valoresFinais = [];
+    for (let i = 0; i < tam; i++) {
+        const vals = respostas.map(r => r[i]);
+        const todosIguais = vals.every(v => v === vals[0]);
+        if (todosIguais) { valoresFinais.push(vals[0]); continue; }
+        const cont = {};
+        vals.forEach(v => { cont[v] = (cont[v] || 0) + 1; });
+        const max = Math.max(...Object.values(cont));
+        const venc = Object.keys(cont).filter(k => cont[k] === max);
+        if (max >= 3 && venc.length === 1) {
+            const minorias = Object.keys(cont).filter(k => k !== venc[0]);
+            let melhorMin = null, melhorMinVotos = -1;
+            minorias.forEach(m => {
+                if (cont[m] > melhorMinVotos) { melhorMinVotos = cont[m]; melhorMin = m; }
+            });
+            valoresFinais.push(melhorMin);
+        } else {
+            valoresFinais.push(null);
+        }
+    }
+
+    aplicarValoresFinais(pos, valoresFinais);
+}
+
+// Aplica manualmente uma única questão para a posição e questão indicadas
+function aplicarManual(btn) {
+    const wrapper = btn.closest('.manual-major');
+    const sel = wrapper.querySelector('.select-manual');
+    const pos = parseInt(sel.dataset.pos, 10);
+    const q = parseInt(sel.dataset.q, 10);
+    const valor = sel.value;
+    if (!valor) { alert('Escolha uma alternativa.'); return; }
+
+    const listasAlunos = listasGlobais.map(parseListaOrdenada);
+    const presentes = listasAlunos.map(l => l[pos] || null);
+    if (presentes.some(p => !p)) return;
+
+    const tam = presentes[0].respostas.length;
+    if (!presentes.every(p => p.respostas.length === tam)) return;
+
+    const valoresFinais = [];
+    for (let i = 0; i < tam; i++) {
+        if ((i + 1) === q) {
+            valoresFinais.push(valor); // aplica só na questão escolhida
+        } else {
+            // mantém o que já existe em cada lista (null = não alterar)
+            const vals = presentes.map(p => p.respostas[i]);
+            const todosIguais = vals.every(v => v === vals[0]);
+            valoresFinais.push(todosIguais ? vals[0] : null);
+        }
+    }
+
+    aplicarValoresFinais(pos, valoresFinais);
 }
 
 function exportarDados() {
