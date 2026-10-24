@@ -1,10 +1,13 @@
 <?php
 $resultados = null;
 $arquivoJson = null;
-if (isset($_GET['id'])) {
-    $id = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['id']);
-    $arquivoJson = __DIR__ . '/../tmp/' . $id . '.json';
-    if (file_exists($arquivoJson)) {
+$idRecebido = $_GET['id'] ?? null;
+
+if ($idRecebido) {
+    $id = preg_replace('/[^a-zA-Z0-9_-]/', '', $idRecebido);
+    $tmpDir = realpath(__DIR__ . '/../tmp');
+    $arquivoJson = $tmpDir . '/' . $id . '.json';
+    if ($tmpDir && file_exists($arquivoJson)) {
         $resultados = json_decode(file_get_contents($arquivoJson), true);
     }
 }
@@ -34,31 +37,24 @@ th { background: #ecf0f1; }
 .btn-voltar { display: inline-block; margin-top: 15px; padding: 10px 20px; background: #7f8c8d; color: #fff; text-decoration: none; border-radius: 4px; }
 .btn-voltar:hover { background: #95a5a6; }
 .erro { background: #f8d7da; color: #721c24; padding: 15px; border-radius: 4px; }
+.erro small { display: block; margin-top: 8px; color: #555; }
 .header-actions { display: flex; gap: 10px; }
-
 .resumo-aluno { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
 .resumo-aluno div { text-align: center; }
 .resumo-aluno strong { display: block; font-size: 12px; color: #555; }
 .resumo-aluno span { font-size: 16px; font-weight: bold; }
-
-/* Regras para Impressão em PDF */
 @media print {
     @page { margin: 15mm; }
     body { background: #fff; padding: 0; font-size: 12px; }
     header, .btn, .btn-voltar, .nao-imprimir { display: none !important; }
     main { max-width: 100%; padding: 0; box-shadow: none; }
-    
     #tabela-turma, .linha-aluno { display: none !important; }
-    
     .detalhes-box { display: block !important; border: none; background: #fff; padding: 0; page-break-after: always; margin-bottom: 0; }
     .detalhes-box:last-child { page-break-after: auto; }
-    
     .resumo-aluno { border: 1px solid #000; padding: 5px; margin-bottom: 10px; }
     .resumo-aluno strong { color: #000; }
-    
     .certo, .errado { background: transparent !important; font-weight: bold; }
     th, td { border: 1px solid #000 !important; padding: 4px; }
-    
     .imprimir-apenas-este .detalhes-box { display: none !important; }
     .imprimir-apenas-este .detalhes-box.ativo { display: block !important; }
 }
@@ -73,7 +69,13 @@ th { background: #ecf0f1; }
 </header>
 <main id="conteudo-principal">
 <?php if (!$resultados): ?>
-    <div class="erro">Resultado não encontrado.</div>
+    <div class="erro">
+        Resultado não encontrado.
+        <small>
+            ID recebido: <strong><?= htmlspecialchars($idRecebido ?? '(nenhum)') ?></strong><br>
+            Caminho procurado: <strong><?= htmlspecialchars($arquivoJson ?? '(nenhum)') ?></strong>
+        </small>
+    </div>
 <?php else: ?>
     <div id="tabela-turma">
         <table>
@@ -98,19 +100,16 @@ th { background: #ecf0f1; }
             <?php endforeach; ?>
         </table>
     </div>
-
     <div id="caixas-detalhes">
         <?php foreach ($resultados as $index => $aluno): ?>
         <div id="detalhes-<?= $index ?>" class="detalhes-box">
             <h3 style="margin-bottom: 10px;">Aluno: <?= htmlspecialchars($aluno['nome']) ?></h3>
-            
             <div class="resumo-aluno">
                 <div><strong>Acertos</strong><span><?= $aluno['acertos'] ?> / 45</span></div>
                 <div><strong>Erros</strong><span><?= $aluno['erros'] ?> / 45</span></div>
                 <div><strong>Nota</strong><span><?= number_format($aluno['nota'], 2) ?></span></div>
                 <div><strong>Percentual</strong><span><?= number_format($aluno['percentual'], 2) ?>%</span></div>
             </div>
-
             <table style="margin-top: 0;">
                 <tr><th>Questão</th><th>Gabarito</th><th>Aluno</th><th>Status</th></tr>
                 <?php foreach ($aluno['detalhes'] as $q => $d): ?>
@@ -125,11 +124,9 @@ th { background: #ecf0f1; }
         </div>
         <?php endforeach; ?>
     </div>
-
     <a class="btn-voltar nao-imprimir" href="index.html">Voltar ao Início</a>
 <?php endif; ?>
 </main>
-
 <script>
 function toggleDetalhes(index) {
     const el = document.getElementById('detalhes-' + index);
@@ -140,7 +137,6 @@ function toggleDetalhes(index) {
         el.classList.add('ativo');
     }
 }
-
 function imprimirGeral() {
     document.body.classList.remove('imprimir-apenas-este');
     document.querySelectorAll('.detalhes-box').forEach(box => box.classList.add('ativo'));
@@ -149,7 +145,6 @@ function imprimirGeral() {
         document.querySelectorAll('.detalhes-box').forEach(box => box.classList.remove('ativo'));
     }, 1000);
 }
-
 function imprimirAluno(index) {
     document.body.classList.add('imprimir-apenas-este');
     document.querySelectorAll('.detalhes-box').forEach(box => box.classList.remove('ativo'));
