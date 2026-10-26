@@ -15,6 +15,10 @@ for ($i = 1; $i <= 45; $i++) {
 }
 
 $arquivo = TMP_DIR . '/gabarito_oficial.json';
-file_put_contents($arquivo, json_encode($gabarito, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+$tmp = $arquivo . '.tmp';
+if (file_put_contents($tmp, json_encode($gabarito, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) === false) {
+    resposta_json(['ok' => false, 'erro' => 'Falha ao gravar arquivo.']);
+}
+rename($tmp, $arquivo);
 
-resposta_json(['ok' => true]);
+resposta_json(['ok' => true, 'total' => count($gabarito)]);

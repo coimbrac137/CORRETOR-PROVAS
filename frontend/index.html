@@ -199,7 +199,7 @@ function criarTabela(tbodyId, prefixo, valores) {
 
 async function carregarGabarito() {
     try {
-        const r = await fetch('../backend/carregar_gabarito.php');
+        const r = await fetch('../backend/carregar_gabarito.php?t=' + Date.now(), { cache: 'no-store' });
         const dados = await r.json();
         criarTabela('tabela-gabarito', 'gab', dados.gabarito || {});
         gabaritoOficial = dados.gabarito || {};
@@ -320,16 +320,37 @@ function atualizarBotaoCorrigirTodos() {
     btn.disabled = alunosCadastrados.length === 0;
 }
 
-function corrigirTodosAlunos() {
+async function corrigirTodosAlunos() {
     if (alunosCadastrados.length === 0) { alert('Nenhum aluno cadastrado.'); return; }
+
+    let gab = null;
+    try {
+        const r = await fetch('../backend/carregar_gabarito.php?t=' + Date.now(), { cache: 'no-store' });
+        const dados = await r.json();
+        gab = dados.gabarito || null;
+    } catch (e) {
+        alert('Não foi possível carregar o gabarito salvo. Verifique se o servidor está ativo.');
+        return;
+    }
+
+    if (!gab) {
+        alert('Nenhum gabarito salvo. Salve o gabarito antes de corrigir.');
+        return;
+    }
 
     const faltandoGab = [];
     for (let i = 1; i <= 45; i++) {
-        if (!gabaritoOficial || !gabaritoOficial[i]) faltandoGab.push(i);
+        const v = (gab[i] || gab[String(i)] || '').toString().toUpperCase();
+        if (!['A','B','C','D'].includes(v)) faltandoGab.push(i);
     }
     if (faltandoGab.length > 0) {
-        alert('Gabarito oficial incompleto. Salve o gabarito antes de corrigir.');
+        alert('Gabarito oficial incompleto (faltam as questões: ' + faltandoGab.join(', ') + '). Salve o gabarito antes de corrigir.');
         return;
+    }
+
+    gabaritoOficial = {};
+    for (let i = 1; i <= 45; i++) {
+        gabaritoOficial[i] = (gab[i] || gab[String(i)]).toString().toUpperCase();
     }
 
     const resultados = alunosCadastrados.map(a => {
@@ -337,10 +358,10 @@ function corrigirTodosAlunos() {
         let acertos = 0;
         for (let i = 1; i <= 45; i++) {
             const g = gabaritoOficial[i];
-            const r = a.respostas[i - 1];
-            const acertou = (g === r);
+            const resp = (a.respostas[i - 1] || '').toString().toUpperCase();
+            const acertou = (g === resp);
             if (acertou) acertos++;
-            detalhes.push({ questao: i, gabarito: g, aluno: r, acertou });
+            detalhes.push({ questao: i, gabarito: g, aluno: resp, acertou });
         }
         return {
             nome: a.nome,

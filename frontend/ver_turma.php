@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../backend/config.php';
 
-// Recebe POST do index.html (corrigir turma lote)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dados'])) {
     $recebidos = json_decode($_POST['dados'], true);
     if (is_array($recebidos) && count($recebidos) > 0) {
@@ -126,12 +125,12 @@ th { background: #ecf0f1; }
             </div>
             <table style="margin-top: 0;">
                 <tr><th>Questão</th><th>Gabarito</th><th>Aluno</th><th>Status</th></tr>
-                <?php foreach ($aluno['detalhes'] as $q => $d): ?>
+                <?php foreach ($aluno['detalhes'] as $d): ?>
                 <tr>
-                    <td><?= $q ?></td>
+                    <td><?= (int)($d['questao'] ?? 0) ?></td>
                     <td><?= htmlspecialchars($d['gabarito']) ?></td>
                     <td><?= htmlspecialchars($d['aluno']) ?></td>
-                    <td class="<?= $d['acertou'] ? 'certo' : 'errado' ?>"><?= $d['acertou'] ? '✓' : '✗' ?></td>
+                    <td class="<?= !empty($d['acertou']) ? 'certo' : 'errado' ?>"><?= !empty($d['acertou']) ? '✓' : '✗' ?></td>
                 </tr>
                 <?php endforeach; ?>
             </table>
