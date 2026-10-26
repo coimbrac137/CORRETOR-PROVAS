@@ -1,13 +1,26 @@
 <?php
+require_once __DIR__ . '/../backend/config.php';
+
+// Recebe POST do index.html (corrigir turma lote)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dados'])) {
+    $recebidos = json_decode($_POST['dados'], true);
+    if (is_array($recebidos) && count($recebidos) > 0) {
+        if (!is_dir(TMP_DIR)) { @mkdir(TMP_DIR, 0777, true); }
+        $novoId = gerar_id();
+        file_put_contents(TMP_DIR . '/' . $novoId . '.json', json_encode($recebidos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        header('Location: ver_turma.php?id=' . $novoId);
+        exit;
+    }
+}
+
 $resultados = null;
 $arquivoJson = null;
 $idRecebido = $_GET['id'] ?? null;
 
 if ($idRecebido) {
     $id = preg_replace('/[^a-zA-Z0-9_-]/', '', $idRecebido);
-    $tmpDir = realpath(__DIR__ . '/../tmp');
-    $arquivoJson = $tmpDir . '/' . $id . '.json';
-    if ($tmpDir && file_exists($arquivoJson)) {
+    $arquivoJson = TMP_DIR . '/' . $id . '.json';
+    if (file_exists($arquivoJson)) {
         $resultados = json_decode(file_get_contents($arquivoJson), true);
     }
 }

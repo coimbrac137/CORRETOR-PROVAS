@@ -63,6 +63,21 @@ th { background: #ecf0f1; }
 .manual-major select { padding: 4px 6px; font-size: 12px; }
 .manual-major .btn-manual { background: #2980b9; padding: 4px 8px; font-size: 12px; }
 .manual-major .btn-manual:hover { background: #21618c; }
+
+.aluno-form { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-top: 15px; }
+.aluno-form .campo-nome { width: 100%; padding: 8px; margin-bottom: 10px; }
+.grade-respostas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 15px; }
+.grade-respostas .item-resp { display: flex; align-items: center; gap: 4px; font-size: 13px; }
+.grade-respostas .item-resp label { font-weight: normal; min-width: 30px; }
+.grade-respostas .item-resp select { flex: 1; padding: 4px; font-size: 13px; }
+.acoes-aluno { display: flex; gap: 10px; flex-wrap: wrap; }
+.lista-alunos-cadastrados { margin-top: 20px; }
+.aluno-cadastrado { background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+.aluno-cadastrado .info { font-size: 13px; }
+.aluno-cadastrado .info strong { color: #2c3e50; }
+.aluno-cadastrado .btn-remover { background: #e74c3c; padding: 4px 8px; font-size: 12px; }
+.aluno-cadastrado .btn-remover:hover { background: #c0392b; }
+.status-grav { font-size: 13px; margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -122,20 +137,37 @@ th { background: #ecf0f1; }
     <div id="status-gabarito" style="margin-top:10px;font-size:13px;"></div>
 
     <h2>Corrigir Turma (Lote)</h2>
-    <form method="post" action="../backend/processar.php">
-        <input type="hidden" name="modo" value="lote">
-        
-        <label>Cole aqui a lista de alunos (Nome + Respostas):</label>
-        <textarea name="lista_alunos" placeholder="Exemplo:&#10;João Silva: C B C A B B D A C B D C B B D C C A D B B B A D A A D C C D C A C B B D A D B A B A B A C&#10;Maria Souza: A B C D A B C D A B C D A B C D A B C D A B C D A B C D A B C D A B C D A B C D A B C D A" required></textarea>
-        
-        <button type="submit">Corrigir Todos</button>
-    </form>
+    <div class="aviso">Digite o nome do aluno, preencha as 45 respostas e clique em <strong>Adicionar aluno</strong>. Quando quiser corrigir a turma inteira, clique em <strong>Corrigir Todos</strong>.</div>
+
+    <div class="aluno-form">
+        <label>Nome do Aluno</label>
+        <input type="text" id="aluno-nome" class="campo-nome" placeholder="Digite o nome completo do aluno">
+
+        <label>Respostas (45 questões)</label>
+        <div class="grade-respostas" id="grade-respostas"></div>
+
+        <div class="acoes-aluno">
+            <button type="button" id="btn-adicionar-aluno" onclick="adicionarAluno()" disabled>Adicionar aluno</button>
+            <button type="button" class="secundario" id="btn-corrigir-todos" onclick="corrigirTodosAlunos()" disabled>Corrigir Todos</button>
+        </div>
+
+        <div class="status-grav" id="status-aluno"></div>
+    </div>
+
+    <div class="lista-alunos-cadastrados">
+        <h3 style="font-size:16px;margin-bottom:10px;">Alunos cadastrados</h3>
+        <div id="lista-alunos"></div>
+    </div>
 </div>
 
 </main>
 <script>
 let dadosCorrigidos = null;
 let listasGlobais = null;
+
+let alunosCadastrados = [];
+let gabaritoOficial = null;
+let respostasAlunoAtual = new Array(45).fill('');
 
 function mostrarAba(id) {
     document.querySelectorAll('.painel').forEach(p => p.classList.remove('ativo'));
@@ -170,8 +202,10 @@ async function carregarGabarito() {
         const r = await fetch('../backend/carregar_gabarito.php');
         const dados = await r.json();
         criarTabela('tabela-gabarito', 'gab', dados.gabarito || {});
+        gabaritoOficial = dados.gabarito || {};
     } catch (e) {
         criarTabela('tabela-gabarito', 'gab', {});
+        gabaritoOficial = {};
     }
 }
 
@@ -188,11 +222,156 @@ async function salvarGabarito() {
         const dados = await r.json();
         status.textContent = dados.ok ? '✓ Gabarito salvo.' : ('Erro: ' + (dados.erro || 'desconhecido'));
         status.style.color = dados.ok ? '#155724' : '#721c24';
+
+        const novo = {};
+        for (let i = 1; i <= 45; i++) {
+            const sel = document.querySelector('select[name="gab' + i + '"]');
+            novo[i] = sel ? sel.value : '';
+        }
+        gabaritoOficial = novo;
     } catch (e) {
         status.textContent = 'Erro ao salvar: ' + e.message;
         status.style.color = '#721c24';
     }
 }
+
+function construirGradeRespostas() {
+    const grade = document.getElementById('grade-respostas');
+    let html = '';
+    for (let i = 1; i <= 45; i++) {
+        html += '<div class="item-resp"><label>' + i + '.</label><select class="resp-aluno" data-q="' + i + '">';
+        html += '<option value="">-</option>';
+        ['A','B','C','D'].forEach(a => {
+            html += '<option value="' + a + '">' + a + '</option>';
+        });
+        html += '</select></div>';
+    }
+    grade.innerHTML = html;
+
+    grade.querySelectorAll('select').forEach(sel => {
+        sel.addEventListener('change', atualizarEstadoAluno);
+    });
+}
+
+function atualizarEstadoAluno() {
+    const selects = document.querySelectorAll('#grade-respostas select');
+    const nome = document.getElementById('aluno-nome').value.trim();
+    let preenchidas = 0;
+    respostasAlunoAtual = [];
+    selects.forEach(s => {
+        respostasAlunoAtual.push(s.value);
+        if (s.value) preenchidas++;
+    });
+
+    const btnAdd = document.getElementById('btn-adicionar-aluno');
+    btnAdd.disabled = !(nome && preenchidas === 45);
+}
+
+function limparFormularioAluno() {
+    document.getElementById('aluno-nome').value = '';
+    document.querySelectorAll('#grade-respostas select').forEach(s => s.value = '');
+    respostasAlunoAtual = new Array(45).fill('');
+    atualizarEstadoAluno();
+}
+
+function adicionarAluno() {
+    const nome = document.getElementById('aluno-nome').value.trim().replace(/\s+/g, ' ');
+    if (!nome) { alert('Digite o nome do aluno.'); return; }
+
+    const selects = document.querySelectorAll('#grade-respostas select');
+    const respostas = [];
+    selects.forEach(s => respostas.push(s.value));
+
+    if (respostas.some(r => !r)) { alert('Preencha todas as 45 respostas.'); return; }
+
+    alunosCadastrados.push({ nome, respostas: respostas.slice() });
+    renderizarListaAlunos();
+    limparFormularioAluno();
+    atualizarBotaoCorrigirTodos();
+
+    document.getElementById('status-aluno').textContent = '✓ Aluno adicionado: ' + nome;
+    document.getElementById('status-aluno').style.color = '#155724';
+}
+
+function renderizarListaAlunos() {
+    const lista = document.getElementById('lista-alunos');
+    if (alunosCadastrados.length === 0) {
+        lista.innerHTML = '<div style="font-size:13px;color:#888;">Nenhum aluno cadastrado ainda.</div>';
+        return;
+    }
+    let html = '';
+    alunosCadastrados.forEach((a, idx) => {
+        html += '<div class="aluno-cadastrado">' +
+            '<div class="info"><strong>' + a.nome + '</strong> — ' + a.respostas.length + ' respostas</div>' +
+            '<button type="button" class="btn-remover" onclick="removerAluno(' + idx + ')">Remover</button>' +
+            '</div>';
+    });
+    lista.innerHTML = html;
+}
+
+function removerAluno(idx) {
+    alunosCadastrados.splice(idx, 1);
+    renderizarListaAlunos();
+    atualizarBotaoCorrigirTodos();
+}
+
+function atualizarBotaoCorrigirTodos() {
+    const btn = document.getElementById('btn-corrigir-todos');
+    btn.disabled = alunosCadastrados.length === 0;
+}
+
+function corrigirTodosAlunos() {
+    if (alunosCadastrados.length === 0) { alert('Nenhum aluno cadastrado.'); return; }
+
+    const faltandoGab = [];
+    for (let i = 1; i <= 45; i++) {
+        if (!gabaritoOficial || !gabaritoOficial[i]) faltandoGab.push(i);
+    }
+    if (faltandoGab.length > 0) {
+        alert('Gabarito oficial incompleto. Salve o gabarito antes de corrigir.');
+        return;
+    }
+
+    const resultados = alunosCadastrados.map(a => {
+        const detalhes = [];
+        let acertos = 0;
+        for (let i = 1; i <= 45; i++) {
+            const g = gabaritoOficial[i];
+            const r = a.respostas[i - 1];
+            const acertou = (g === r);
+            if (acertou) acertos++;
+            detalhes.push({ questao: i, gabarito: g, aluno: r, acertou });
+        }
+        return {
+            nome: a.nome,
+            matricula: '',
+            acertos,
+            erros: 45 - acertos,
+            nota: acertos,
+            percentual: Number(((acertos / 45) * 100).toFixed(2)),
+            detalhes
+        };
+    });
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'ver_turma.php';
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'dados';
+    input.value = JSON.stringify(resultados);
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+construirGradeRespostas();
+atualizarEstadoAluno();
+document.getElementById('aluno-nome').addEventListener('input', atualizarEstadoAluno);
+
+carregarGabarito();
 
 function limparNome(nome) {
     return nome.replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim();
@@ -203,14 +382,23 @@ function parseListaOrdenada(texto) {
     const linhas = texto.split('\n');
     let nomeAtual = null;
     let respAtual = [];
+    let numerado = false;
 
     function fechar() {
-        if (nomeAtual !== null && respAtual.length > 0) {
-            alunos.push({ nome: nomeAtual, respostas: respAtual.slice() });
+        if (nomeAtual !== null) {
+            alunos.push({
+                nome: nomeAtual,
+                respostas: respAtual.slice(),
+                valido: respAtual.length === 45
+            });
         }
         nomeAtual = null;
         respAtual = [];
+        numerado = false;
     }
+
+    const reNum = /^\s*(\d+)\s*[\.\)\-]\s*([A-Za-z])\s*$/;
+    const reLetraIsolada = /(?<![A-Za-zÀ-ÿ])[ABCD](?![A-Za-zÀ-ÿ])/g;
 
     for (const linhaBruta of linhas) {
         const limpa = linhaBruta.trim();
@@ -220,22 +408,23 @@ function parseListaOrdenada(texto) {
         if (mNome) {
             fechar();
             nomeAtual = limparNome(mNome[1]);
-            const inline = (mNome[1].match(/\b[ABCD]\b/gi) || []).map(x => x.toUpperCase());
-            respAtual = inline;
             continue;
         }
 
-        const mNum = limpa.match(/^(\d+)\s*[\.\)\-]\s*([A-Za-z])\b/);
-        if (mNum && nomeAtual !== null) {
+        if (nomeAtual === null) continue;
+
+        const mNum = limpa.match(reNum);
+        if (mNum) {
+            numerado = true;
             respAtual.push(mNum[2].toUpperCase());
             continue;
         }
 
-        if (nomeAtual !== null) {
-            const letras = limpa.match(/\b[A-Za-z]\b/g);
-            if (letras) {
-                letras.forEach(l => respAtual.push(l.toUpperCase()));
-            }
+        if (numerado) continue;
+
+        const letras = limpa.match(reLetraIsolada);
+        if (letras) {
+            letras.forEach(l => respAtual.push(l));
         }
     }
     fechar();
@@ -351,21 +540,21 @@ function compararListas() {
             continue;
         }
 
-        const respostas = presentes.map(p => p.respostas);
-        const tamanhos = respostas.map(r => r.length);
-        const tamIgual = tamanhos.every(t => t === tamanhos[0]);
-        if (!tamIgual) {
-            html += ': <span class="erro">Quantidade de respostas diferente (' +
-                tamanhos.join(', ') + ')</span>';
+        const tamanhos = presentes.map(p => p.respostas.length);
+        const todos45 = tamanhos.every(t => t === 45);
+        if (!todos45) {
+            html += ': <span class="erro">Quantidade de respostas inválida (deve ser 45): ' +
+                tamanhos.map((t, i) => 'L' + (i + 1) + '=' + t).join(', ') + '</span>';
             div.innerHTML = html;
             resultado.appendChild(div);
             tudoIgual = false;
             continue;
         }
 
+        const respostas = presentes.map(p => p.respostas);
         const divergencias = [];
         const padroes = [];
-        for (let i = 0; i < respostas[0].length; i++) {
+        for (let i = 0; i < 45; i++) {
             const valores = respostas.map(r => r[i]);
             const todosIguais = valores.every(v => v === valores[0]);
             if (!todosIguais) {
@@ -384,7 +573,7 @@ function compararListas() {
         }
 
         if (divergencias.length === 0) {
-            html += ': <span class="ok">✓ IGUAIS nos 4 campos (' + respostas[0].length + ' respostas)</span>';
+            html += ': <span class="ok">✓ IGUAIS nos 4 campos (45 respostas)</span>';
             corrigidos.set(nomeRef, respostas[0]);
         } else {
             html += '<br><span class="erro">✗ Diferente</span><br>' +
@@ -399,12 +588,10 @@ function compararListas() {
                     const minStr = p.minorias.length > 0 ? p.minorias.join(', ') : '-';
                     status = 'Maioria: <strong>' + p.maioria + '</strong> | Minoria: <strong>' + minStr + '</strong>';
                 } else {
-                    // sem maioria clara -> mostra select para escolher manualmente
                     status = '<span style="color:#721c24">Sem maioria clara</span>';
                 }
                 html += '<div class="padrao-item">Q' + p.questao + ' → ' + det + ' <br>Votos: ' + votos + ' → ' + status;
 
-                // Se sem maioria clara, oferece select manual
                 if (!p.temPadrao) {
                     html += '<div class="manual-major">' +
                         '<select class="select-manual" data-pos="' + pos + '" data-q="' + p.questao + '">' +
@@ -457,10 +644,7 @@ function aplicarNome(btn) {
             const mNome = limpa.match(/^(?:Nome do Aluno|Nome)\s*:\s*(.+)$/i);
             if (!mNome) continue;
             if (cont === pos) {
-                const respostasInline = (mNome[1].match(/\b[ABCD]\b/gi) || []).map(x => x.toUpperCase());
-                let novaLinha = 'Nome do Aluno: ' + novoNome;
-                if (respostasInline.length > 0) novaLinha += ' ' + respostasInline.join(' ');
-                linhas[i] = novaLinha;
+                linhas[i] = 'Nome do Aluno: ' + novoNome;
                 break;
             }
             cont++;
@@ -491,41 +675,18 @@ function aplicarValoresFinais(pos, valoresFinais) {
             if (mNome) {
                 dentro = (contAluno === pos);
                 idxResp = 0;
-
-                if (dentro) {
-                    const temInline = /\b[ABCD]\b/i.test(mNome[1]);
-                    if (temInline) {
-                        let p = 0;
-                        linhas[i] = linhas[i].replace(/\b[ABCD]\b/gi, (match) => {
-                            const f = valoresFinais[p];
-                            p++;
-                            return f !== null ? f : match;
-                        });
-                        idxResp = p;
-                    }
-                }
                 contAluno++;
                 continue;
             }
 
             if (dentro) {
-                const mNum = limpa.match(/^(\d+\s*[\.\)\-]\s*)([A-Za-z])\b/);
+                const mNum = limpa.match(/^(\d+\s*[\.\)\-]\s*)([A-Za-z])\s*$/);
                 if (mNum) {
                     const f = valoresFinais[idxResp];
-                    if (f !== null) {
-                        linhas[i] = linhas[i].replace(/(\d+\s*[\.\)\-]\s*)([A-Za-z])\b/, (mm, prefix) => prefix + f);
+                    if (f !== null && f !== undefined) {
+                        linhas[i] = linhas[i].replace(/(\d+\s*[\.\)\-]\s*)([A-Za-z])\s*$/, (mm, prefix) => prefix + f);
                     }
                     idxResp++;
-                    continue;
-                }
-
-                const letras = limpa.match(/\b[A-Za-z]\b/g);
-                if (letras) {
-                    linhas[i] = linhas[i].replace(/\b[A-Za-z]\b/g, (match) => {
-                        const f = valoresFinais[idxResp];
-                        idxResp++;
-                        return f !== null ? f : match;
-                    });
                     continue;
                 }
             }
@@ -551,11 +712,10 @@ function aceitarPadrao(btn) {
     if (presentes.some(p => !p)) return;
 
     const respostas = presentes.map(p => p.respostas.slice());
-    const tam = respostas[0].length;
-    if (!respostas.every(r => r.length === tam)) return;
+    if (!respostas.every(r => r.length === 45)) return;
 
     const valoresFinais = [];
-    for (let i = 0; i < tam; i++) {
+    for (let i = 0; i < 45; i++) {
         const vals = respostas.map(r => r[i]);
         const todosIguais = vals.every(v => v === vals[0]);
         if (todosIguais) { valoresFinais.push(vals[0]); continue; }
@@ -578,11 +738,10 @@ function aceitarMinoria(btn) {
     if (presentes.some(p => !p)) return;
 
     const respostas = presentes.map(p => p.respostas.slice());
-    const tam = respostas[0].length;
-    if (!respostas.every(r => r.length === tam)) return;
+    if (!respostas.every(r => r.length === 45)) return;
 
     const valoresFinais = [];
-    for (let i = 0; i < tam; i++) {
+    for (let i = 0; i < 45; i++) {
         const vals = respostas.map(r => r[i]);
         const todosIguais = vals.every(v => v === vals[0]);
         if (todosIguais) { valoresFinais.push(vals[0]); continue; }
@@ -605,7 +764,6 @@ function aceitarMinoria(btn) {
     aplicarValoresFinais(pos, valoresFinais);
 }
 
-// Aplica manualmente uma única questão para a posição e questão indicadas
 function aplicarManual(btn) {
     const wrapper = btn.closest('.manual-major');
     const sel = wrapper.querySelector('.select-manual');
@@ -618,15 +776,13 @@ function aplicarManual(btn) {
     const presentes = listasAlunos.map(l => l[pos] || null);
     if (presentes.some(p => !p)) return;
 
-    const tam = presentes[0].respostas.length;
-    if (!presentes.every(p => p.respostas.length === tam)) return;
+    if (!presentes.every(p => p.respostas.length === 45)) return;
 
     const valoresFinais = [];
-    for (let i = 0; i < tam; i++) {
+    for (let i = 0; i < 45; i++) {
         if ((i + 1) === q) {
-            valoresFinais.push(valor); // aplica só na questão escolhida
+            valoresFinais.push(valor);
         } else {
-            // mantém o que já existe em cada lista (null = não alterar)
             const vals = presentes.map(p => p.respostas[i]);
             const todosIguais = vals.every(v => v === vals[0]);
             valoresFinais.push(todosIguais ? vals[0] : null);
