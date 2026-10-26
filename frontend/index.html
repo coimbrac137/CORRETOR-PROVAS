@@ -78,10 +78,90 @@ th { background: #ecf0f1; }
 .aluno-cadastrado .btn-remover { background: #e74c3c; padding: 4px 8px; font-size: 12px; }
 .aluno-cadastrado .btn-remover:hover { background: #c0392b; }
 .status-grav { font-size: 13px; margin-top: 10px; }
+.linha-nome-mat { display: flex; gap: 10px; }
+.linha-nome-mat .campo-nome { flex: 2; }
+.linha-nome-mat .campo-matricula { flex: 1; padding: 8px; }
+
+/* CARTÃO RESPOSTA (FORMATO A4) */
+.cartao-wrapper { width: 100%; overflow-x: auto; padding: 10px 0; }
+.cartao-resposta { background: #fff; padding: 25px 15px; border: 1px solid #ccc; border-radius: 4px; margin: 0 auto; width: 750px; max-width: 100%; min-height: 900px; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.cartao-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; position: relative; z-index: 2; }
+.coluna-questoes { display: flex; flex-direction: column; gap: 22px; }
+.linha-questao { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #000; padding-bottom: 8px; }
+.num-questao { font-weight: bold; font-size: 14px; width: 28px; text-align: right; color: #333; }
+.opcoes { display: flex; gap: 30px; flex: 1; justify-content: space-around; margin-left: 10px; }
+.bolinha-cartao { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #555; font-size: 9px; cursor: pointer; background: transparent; color: #555; user-select: none; transition: 0.1s; position: relative; }
+.bolinha-cartao:hover { border-color: #2980b9; }
+.bolinha-cartao.marcada { background: #2980b9; color: #fff; border-color: #21618c; font-weight: bold; }
+.bolinha-cartao.marcada::after { content: ''; position: absolute; top: 1.5px; left: 1.5px; right: 1.5px; bottom: 1.5px; border-radius: 50%; border: 1.5px solid #fff; }
+.cabecalho-cartao { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; font-weight: bold; color: #555; position: relative; z-index: 2; margin-top: 10px; }
+
+/* Corrigido alinhamento do cabeçalho para bater com a largura das colunas */
+.cabecalho-cartao .col-titulo { flex: 1; display: flex; justify-content: space-around; padding-left: 38px; padding-right: 0px; }
+
+.desenho-area { position: relative; touch-action: none; user-select: none; -webkit-user-select: none; }
+canvas.traco { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 5; }
+
+/* CONTROLES IMAGEM */
+.controles-imagem { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; background: #eef2f5; padding: 10px; border-radius: 4px; flex-wrap: wrap; }
+.controles-imagem input[type="file"] { display: none; }
+.controles-imagem label.file-btn { background: #2980b9; color: #fff; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+.controles-imagem label.file-btn:hover { background: #21618c; }
+.controles-imagem input[type="range"] { width: 100px; }
+.controles-imagem .btn-limpar-img { background: #e74c3c; padding: 8px 15px; }
+.controles-imagem .btn-limpar-img:hover { background: #c0392b; }
+
+#img-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; display: none; }
+#img-fundo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; opacity: 0.4; transform-origin: top left; pointer-events: none; }
+
+/* PAINEL LATERAL DE AJUSTE */
+body.ajustando { display: flex; gap: 20px; align-items: flex-start; max-width: 1600px; margin: 0 auto; padding: 20px; }
+body.ajustando main { margin: 0; flex: 1; max-width: none; }
+.painel-ajuste { display: none; width: 320px; background: #fff; padding: 20px; border-radius: 6px; position: sticky; top: 20px; flex-shrink: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.painel-ajuste.ativo { display: block; }
+.painel-ajuste h3 { margin-bottom: 15px; font-size: 16px; border-bottom: 2px solid #ecf0f1; padding-bottom: 5px; }
+.painel-ajuste .grupo-controle { margin-bottom: 15px; }
+.painel-ajuste label { display: block; font-size: 12px; color: #555; margin-bottom: 5px; }
+.painel-ajuste input[type="range"] { width: 100%; }
+.painel-ajuste .botoes-ajuste { display: flex; gap: 5px; margin-top: 10px; flex-wrap: wrap; }
+.painel-ajuste button { padding: 6px 10px; font-size: 12px; }
+.painel-ajuste .btn-fechar { background: #e74c3c; width: 100%; margin-top: 15px; padding: 10px; font-weight: bold; }
+.painel-ajuste .btn-fechar:hover { background: #c0392b; }
+
+/* PAINEL FLUTUANTE DE CONTROLE DA IMAGEM (arrastar/zoom/rotacionar com mouse) */
+.painel-flutuante-img {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: none;
+    width: 260px;
+    font-size: 12px;
+}
+.painel-flutuante-img.ativo { display: block; }
+.painel-flutuante-img h4 { margin-bottom: 8px; font-size: 13px; color: #2c3e50; }
+.painel-flutuante-img .linha-ctrl { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.painel-flutuante-img .linha-ctrl label { flex: 0 0 60px; font-size: 11px; color: #555; }
+.painel-flutuante-img .linha-ctrl input[type="range"] { flex: 1; }
+.painel-flutuante-img .linha-ctrl .val { flex: 0 0 45px; text-align: right; font-size: 11px; color: #888; }
+.painel-flutuante-img .botoes-float { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
+.painel-flutuante-img .botoes-float button { padding: 5px 8px; font-size: 11px; flex: 1; }
+.painel-flutuante-img .btn-fechar-float { background: #e74c3c; width: 100%; margin-top: 8px; padding: 7px; font-weight: bold; }
+.painel-flutuante-img .btn-fechar-float:hover { background: #c0392b; }
+.painel-flutuante-img .dica { font-size: 10px; color: #888; margin-top: 6px; line-height: 1.4; }
+
+/* GABARITO MENOR */
+#tabela-gabarito td { padding: 6px 8px; font-size: 13px; }
+#tabela-gabarito th { padding: 6px 8px; font-size: 12px; }
+#tabela-gabarito select { font-size: 13px; padding: 4px 6px; min-width: 50px; font-weight: bold; }
 </style>
 </head>
 <body>
-<header><h1>Corretor de Provas</h1></header>
 <main>
 
 <div class="abas">
@@ -137,16 +217,63 @@ th { background: #ecf0f1; }
     <div id="status-gabarito" style="margin-top:10px;font-size:13px;"></div>
 
     <h2>Corrigir Turma (Lote)</h2>
-    <div class="aviso">Digite o nome do aluno, preencha as 45 respostas e clique em <strong>Adicionar aluno</strong>. Quando quiser corrigir a turma inteira, clique em <strong>Corrigir Todos</strong>.</div>
+    <div class="aviso">Digite o nome do aluno, a matrícula, preencha as 45 respostas (clique ou arraste o mouse/dedo por cima das bolinhas) e clique em <strong>Adicionar aluno</strong>. Quando quiser corrigir a turma inteira, clique em <strong>Corrigir Todos</strong>.</div>
 
     <div class="aluno-form">
         <label>Nome do Aluno</label>
-        <input type="text" id="aluno-nome" class="campo-nome" placeholder="Digite o nome completo do aluno">
+        <div class="linha-nome-mat">
+            <input type="text" id="aluno-nome" class="campo-nome" placeholder="Digite o nome completo do aluno">
+            <input type="text" id="aluno-matricula" class="campo-matricula" placeholder="Matrícula">
+        </div>
 
-        <label>Respostas (45 questões)</label>
-        <div class="grade-respostas" id="grade-respostas"></div>
+        <label style="margin-top:10px;display:block;">Respostas (45 questões)</label>
+        
+        <div class="controles-imagem">
+            <label for="input-imagem" class="file-btn">Carregar Imagem de Fundo</label>
+            <input type="file" id="input-imagem" accept="image/*">
+            <button type="button" class="alerta" onclick="abrirAjusteImagem()" id="btn-ajustar" disabled>Ajustar Imagem</button>
+            <label>Opacidade:</label>
+            <input type="range" id="range-opacidade" min="0" max="1" step="0.05" value="0.4">
+            <button type="button" class="btn-limpar-img" onclick="limparImagem()">Remover Imagem</button>
+        </div>
 
-        <div class="acoes-aluno">
+        <div class="cartao-wrapper">
+            <div class="desenho-area cartao-resposta" id="desenho-area">
+                <div id="img-container">
+                    <img id="img-fundo" src="">
+                </div>
+                <canvas class="traco" id="canvas-traco"></canvas>
+                
+                <div class="cabecalho-cartao">
+                    <div class="col-titulo">
+                        <span style="flex:1; text-align:center;">A</span>
+                        <span style="flex:1; text-align:center;">B</span>
+                        <span style="flex:1; text-align:center;">C</span>
+                        <span style="flex:1; text-align:center;">D</span>
+                    </div>
+                    <div class="col-titulo">
+                        <span style="flex:1; text-align:center;">A</span>
+                        <span style="flex:1; text-align:center;">B</span>
+                        <span style="flex:1; text-align:center;">C</span>
+                        <span style="flex:1; text-align:center;">D</span>
+                    </div>
+                    <div class="col-titulo">
+                        <span style="flex:1; text-align:center;">A</span>
+                        <span style="flex:1; text-align:center;">B</span>
+                        <span style="flex:1; text-align:center;">C</span>
+                        <span style="flex:1; text-align:center;">D</span>
+                    </div>
+                </div>
+
+                <div class="cartao-grid">
+                    <div class="coluna-questoes" id="col-1"></div>
+                    <div class="coluna-questoes" id="col-2"></div>
+                    <div class="coluna-questoes" id="col-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="acoes-aluno" style="margin-top:15px;">
             <button type="button" id="btn-adicionar-aluno" onclick="adicionarAluno()" disabled>Adicionar aluno</button>
             <button type="button" class="secundario" id="btn-corrigir-todos" onclick="corrigirTodosAlunos()" disabled>Corrigir Todos</button>
         </div>
@@ -161,6 +288,81 @@ th { background: #ecf0f1; }
 </div>
 
 </main>
+
+<!-- PAINEL LATERAL DE AJUSTE -->
+<div class="painel-ajuste" id="painel-ajuste">
+    <h3>Ajuste da Imagem</h3>
+    
+    <div class="grupo-controle">
+        <label>Tamanho (Escala)</label>
+        <input type="range" id="ajuste-escala" min="0.1" max="3" step="0.01" value="1">
+        <div style="font-size:11px; text-align:right; color:#888;" id="val-escala">100%</div>
+    </div>
+
+    <div class="grupo-controle">
+        <label>Posição X</label>
+        <input type="range" id="ajuste-x" min="-500" max="500" step="1" value="0">
+        <div style="font-size:11px; text-align:right; color:#888;" id="val-x">0px</div>
+    </div>
+
+    <div class="grupo-controle">
+        <label>Posição Y</label>
+        <input type="range" id="ajuste-y" min="-500" max="500" step="1" value="0">
+        <div style="font-size:11px; text-align:right; color:#888;" id="val-y">0px</div>
+    </div>
+
+    <div class="grupo-controle">
+        <label>Rotação</label>
+        <input type="range" id="ajuste-rotacao" min="-180" max="180" step="1" value="0">
+        <div style="font-size:11px; text-align:right; color:#888;" id="val-rotacao">0°</div>
+    </div>
+
+    <div class="botoes-ajuste">
+        <button type="button" onclick="resetarAjuste()">Resetar</button>
+        <button type="button" onclick="girar90()">Girar 90°</button>
+        <button type="button" onclick="centralizarImagem()">Centralizar</button>
+        <button type="button" onclick="ajustarParaCaber()">Caber na Tela</button>
+    </div>
+
+    <button type="button" class="btn-fechar" onclick="fecharAjusteImagem()">Concluir Ajuste</button>
+</div>
+
+<!-- PAINEL FLUTUANTE DE CONTROLE DA IMAGEM (mouse) -->
+<div class="painel-flutuante-img" id="painel-float-img">
+    <h4>Controle da Imagem (mouse)</h4>
+
+    <div class="linha-ctrl">
+        <label>Zoom</label>
+        <input type="range" id="float-escala" min="0.1" max="5" step="0.01" value="1">
+        <span class="val" id="float-val-escala">100%</span>
+    </div>
+    <div class="linha-ctrl">
+        <label>Rotação</label>
+        <input type="range" id="float-rotacao" min="-180" max="180" step="1" value="0">
+        <span class="val" id="float-val-rotacao">0°</span>
+    </div>
+    <div class="linha-ctrl">
+        <label>X</label>
+        <input type="range" id="float-x" min="-800" max="800" step="1" value="0">
+        <span class="val" id="float-val-x">0px</span>
+    </div>
+    <div class="linha-ctrl">
+        <label>Y</label>
+        <input type="range" id="float-y" min="-800" max="800" step="1" value="0">
+        <span class="val" id="float-val-y">0px</span>
+    </div>
+
+    <div class="botoes-float">
+        <button type="button" onclick="resetarAjuste()">Resetar</button>
+        <button type="button" onclick="girar90()">Girar 90°</button>
+        <button type="button" onclick="centralizarImagem()">Centralizar</button>
+    </div>
+
+    <button type="button" class="btn-fechar-float" onclick="fecharPainelFlutuante()">Fechar</button>
+
+    <div class="dica">Arraste a imagem com o mouse para mover • Roda do mouse = zoom • Shift + roda = rotação</div>
+</div>
+
 <script>
 let dadosCorrigidos = null;
 let listasGlobais = null;
@@ -174,6 +376,7 @@ function mostrarAba(id) {
     document.querySelectorAll('.abas button').forEach(b => b.classList.remove('ativa'));
     document.getElementById('aba-' + id).classList.add('ativo');
     event.target.classList.add('ativa');
+    if (id === 'manual') setTimeout(redimensionarCanvas, 50);
 }
 
 function criarTabela(tbodyId, prefixo, valores) {
@@ -235,33 +438,469 @@ async function salvarGabarito() {
     }
 }
 
-function construirGradeRespostas() {
-    const grade = document.getElementById('grade-respostas');
-    let html = '';
-    for (let i = 1; i <= 45; i++) {
-        html += '<div class="item-resp"><label>' + i + '.</label><select class="resp-aluno" data-q="' + i + '">';
-        html += '<option value="">-</option>';
-        ['A','B','C','D'].forEach(a => {
-            html += '<option value="' + a + '">' + a + '</option>';
-        });
-        html += '</select></div>';
+function construirTabelaRespostas() {
+    const col1 = document.getElementById('col-1');
+    const col2 = document.getElementById('col-2');
+    const col3 = document.getElementById('col-3');
+    
+    function buildColuna(container, inicio) {
+        let html = '';
+        for (let i = inicio; i < inicio + 15; i++) {
+            html += '<div class="linha-questao">';
+            html += '<div class="num-questao">' + String(i).padStart(2, '0') + '</div>';
+            html += '<div class="bolinhas opcoes" data-q="' + i + '">';
+            ['A','B','C','D'].forEach(a => {
+                html += '<span class="bolinha-cartao" data-q="' + i + '" data-letra="' + a + '"></span>';
+            });
+            html += '</div></div>';
+        }
+        container.innerHTML = html;
     }
-    grade.innerHTML = html;
 
-    grade.querySelectorAll('select').forEach(sel => {
-        sel.addEventListener('change', atualizarEstadoAluno);
+    buildColuna(col1, 1);
+    buildColuna(col2, 16);
+    buildColuna(col3, 31);
+}
+
+function marcarBolinha(el) {
+    const q = parseInt(el.dataset.q, 10);
+    const letra = el.dataset.letra;
+    const grupo = el.parentElement.querySelectorAll('.bolinha-cartao');
+    const jaMarcada = el.classList.contains('marcada');
+
+    grupo.forEach(x => x.classList.remove('marcada'));
+    if (!jaMarcada) {
+        el.classList.add('marcada');
+        respostasAlunoAtual[q - 1] = letra;
+    } else {
+        respostasAlunoAtual[q - 1] = '';
+    }
+    atualizarEstadoAluno();
+}
+
+let desenhando = false;
+let ultimoPonto = null;
+let ctx = null;
+let canvas = null;
+let area = null;
+
+function redimensionarCanvas() {
+    if (!canvas || !area) return;
+    const rect = area.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+}
+
+function configurarArrasto() {
+    area = document.getElementById('desenho-area');
+    canvas = document.getElementById('canvas-traco');
+    ctx = canvas.getContext('2d');
+
+    redimensionarCanvas();
+    window.addEventListener('resize', redimensionarCanvas);
+    setTimeout(redimensionarCanvas, 200);
+
+    let ultimoEl = null;
+
+    function getPos(ev) {
+        const rect = canvas.getBoundingClientRect();
+        const src = (ev.touches && ev.touches[0]) || (ev.changedTouches && ev.changedTouches[0]) || ev;
+        return { x: src.clientX - rect.left, y: src.clientY - rect.top, cx: src.clientX, cy: src.clientY };
+    }
+
+    function desenharLinha(p1, p2) {
+        ctx.strokeStyle = '#2980b9';
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+    }
+
+    function marcarNoPonto(cx, cy) {
+        const el = document.elementFromPoint(cx, cy);
+        if (el && el.classList && el.classList.contains('bolinha-cartao')) {
+            if (el !== ultimoEl) {
+                ultimoEl = el;
+                const q = parseInt(el.dataset.q, 10);
+                const letra = el.dataset.letra;
+                const grupo = el.parentElement.querySelectorAll('.bolinha-cartao');
+                grupo.forEach(x => x.classList.remove('marcada'));
+                el.classList.add('marcada');
+                respostasAlunoAtual[q - 1] = letra;
+                atualizarEstadoAluno();
+            }
+        }
+    }
+
+    function iniciar(ev) {
+        const pos = getPos(ev);
+        const el = document.elementFromPoint(pos.cx, pos.cy);
+        if (!el || !el.classList || !el.classList.contains('bolinha-cartao')) return;
+        desenhando = true;
+        ultimoEl = null;
+        ultimoPonto = pos;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        marcarNoPonto(pos.cx, pos.cy);
+        if (ev.cancelable) ev.preventDefault();
+    }
+
+    function mover(ev) {
+        if (!desenhando) return;
+        const pos = getPos(ev);
+        if (ultimoPonto) desenharLinha(ultimoPonto, pos);
+        ultimoPonto = pos;
+        marcarNoPonto(pos.cx, pos.cy);
+        if (ev.cancelable) ev.preventDefault();
+    }
+
+    function terminar() {
+        if (!desenhando) return;
+        desenhando = false;
+        ultimoEl = null;
+        ultimoPonto = null;
+        setTimeout(() => {
+            if (!desenhando) ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }, 250);
+    }
+
+    area.addEventListener('mousedown', iniciar);
+    document.addEventListener('mousemove', mover);
+    document.addEventListener('mouseup', terminar);
+
+    area.addEventListener('click', function(ev) {
+        if (desenhando) return;
+        const el = ev.target;
+        if (el && el.classList && el.classList.contains('bolinha-cartao')) {
+            marcarBolinha(el);
+        }
     });
 }
 
+// Lógica da imagem de fundo e ajustes
+let imgOriginalSrc = null;
+let ajusteState = {
+    scale: 1,
+    rotation: 0,
+    x: 0,
+    y: 0,
+    imgW: 0,
+    imgH: 0
+};
+
+document.getElementById('input-imagem').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            imgOriginalSrc = evt.target.result;
+            const imgFundo = document.getElementById('img-fundo');
+            imgFundo.src = imgOriginalSrc;
+            document.getElementById('img-container').style.display = 'block';
+            document.getElementById('btn-ajustar').disabled = false;
+            
+            // Resetar ajustes
+            ajusteState.scale = 1;
+            ajusteState.rotation = 0;
+            ajusteState.x = 0;
+            ajusteState.y = 0;
+            
+            imgFundo.onload = function() {
+                ajusteState.imgW = imgFundo.naturalWidth;
+                ajusteState.imgH = imgFundo.naturalHeight;
+                atualizarTransformFundo();
+                abrirAjusteImagem();
+            };
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('range-opacidade').addEventListener('input', function(e) {
+    document.getElementById('img-fundo').style.opacity = e.target.value;
+});
+
+function limparImagem() {
+    imgOriginalSrc = null;
+    document.getElementById('img-container').style.display = 'none';
+    document.getElementById('img-fundo').src = '';
+    document.getElementById('input-imagem').value = '';
+    document.getElementById('btn-ajustar').disabled = true;
+    fecharAjusteImagem();
+    fecharPainelFlutuante();
+}
+
+// Lógica do Painel Lateral de Ajuste
+const painelAjuste = document.getElementById('painel-ajuste');
+const inputEscala = document.getElementById('ajuste-escala');
+const inputX = document.getElementById('ajuste-x');
+const inputY = document.getElementById('ajuste-y');
+const inputRotacao = document.getElementById('ajuste-rotacao');
+
+// Painel flutuante
+const painelFloat = document.getElementById('painel-float-img');
+const floatEscala = document.getElementById('float-escala');
+const floatRotacao = document.getElementById('float-rotacao');
+const floatX = document.getElementById('float-x');
+const floatY = document.getElementById('float-y');
+
+function abrirAjusteImagem() {
+    if (!imgOriginalSrc) return;
+    document.body.classList.add('ajustando');
+    painelAjuste.classList.add('ativo');
+    painelFloat.classList.add('ativo');
+    
+    // Sincronizar sliders com o estado atual
+    inputEscala.value = ajusteState.scale;
+    inputX.value = ajusteState.x;
+    inputY.value = ajusteState.y;
+    inputRotacao.value = ajusteState.rotation;
+    sincronizarFloat();
+    atualizarLabels();
+    
+    setTimeout(redimensionarCanvas, 300);
+}
+
+function fecharAjusteImagem() {
+    document.body.classList.remove('ajustando');
+    painelAjuste.classList.remove('ativo');
+    setTimeout(redimensionarCanvas, 300);
+}
+
+function fecharPainelFlutuante() {
+    painelFloat.classList.remove('ativo');
+}
+
+function atualizarLabels() {
+    document.getElementById('val-escala').textContent = Math.round(ajusteState.scale * 100) + '%';
+    document.getElementById('val-x').textContent = ajusteState.x + 'px';
+    document.getElementById('val-y').textContent = ajusteState.y + 'px';
+    document.getElementById('val-rotacao').textContent = ajusteState.rotation + '°';
+    document.getElementById('float-val-escala').textContent = Math.round(ajusteState.scale * 100) + '%';
+    document.getElementById('float-val-rotacao').textContent = ajusteState.rotation + '°';
+    document.getElementById('float-val-x').textContent = Math.round(ajusteState.x) + 'px';
+    document.getElementById('float-val-y').textContent = Math.round(ajusteState.y) + 'px';
+}
+
+function sincronizarFloat() {
+    floatEscala.value = ajusteState.scale;
+    floatRotacao.value = ajusteState.rotation;
+    floatX.value = Math.max(-800, Math.min(800, ajusteState.x));
+    floatY.value = Math.max(-800, Math.min(800, ajusteState.y));
+}
+
+function atualizarTransformFundo() {
+    const imgFundo = document.getElementById('img-fundo');
+    if (!imgFundo) return;
+    
+    imgFundo.style.width = 'auto';
+    imgFundo.style.height = 'auto';
+    imgFundo.style.left = '50%';
+    imgFundo.style.top = '50%';
+    imgFundo.style.transformOrigin = 'center center';
+    
+    const containerRect = document.getElementById('img-container').getBoundingClientRect();
+    if (containerRect.width === 0) return;
+    
+    const baseScale = Math.min(containerRect.width / ajusteState.imgW, containerRect.height / ajusteState.imgH);
+    const finalScale = baseScale * ajusteState.scale;
+    
+    imgFundo.style.transform = `translate(calc(-50% + ${ajusteState.x}px), calc(-50% + ${ajusteState.y}px)) scale(${finalScale}) rotate(${ajusteState.rotation}deg)`;
+}
+
+// Eventos dos sliders laterais
+inputEscala.addEventListener('input', (e) => {
+    ajusteState.scale = parseFloat(e.target.value);
+    atualizarTransformFundo();
+    sincronizarFloat();
+    atualizarLabels();
+});
+
+inputX.addEventListener('input', (e) => {
+    ajusteState.x = parseFloat(e.target.value);
+    atualizarTransformFundo();
+    sincronizarFloat();
+    atualizarLabels();
+});
+
+inputY.addEventListener('input', (e) => {
+    ajusteState.y = parseFloat(e.target.value);
+    atualizarTransformFundo();
+    sincronizarFloat();
+    atualizarLabels();
+});
+
+inputRotacao.addEventListener('input', (e) => {
+    ajusteState.rotation = parseFloat(e.target.value);
+    atualizarTransformFundo();
+    sincronizarFloat();
+    atualizarLabels();
+});
+
+// Eventos dos sliders flutuantes
+floatEscala.addEventListener('input', (e) => {
+    ajusteState.scale = parseFloat(e.target.value);
+    inputEscala.value = ajusteState.scale;
+    atualizarTransformFundo();
+    atualizarLabels();
+});
+
+floatRotacao.addEventListener('input', (e) => {
+    ajusteState.rotation = parseFloat(e.target.value);
+    inputRotacao.value = ajusteState.rotation;
+    atualizarTransformFundo();
+    atualizarLabels();
+});
+
+floatX.addEventListener('input', (e) => {
+    ajusteState.x = parseFloat(e.target.value);
+    inputX.value = ajusteState.x;
+    atualizarTransformFundo();
+    atualizarLabels();
+});
+
+floatY.addEventListener('input', (e) => {
+    ajusteState.y = parseFloat(e.target.value);
+    inputY.value = ajusteState.y;
+    atualizarTransformFundo();
+    atualizarLabels();
+});
+
+// Interação direta com a imagem (arrastar) — agora com pointer-events ativados durante ajuste
+let isDraggingImg = false;
+let dragStartX = 0;
+let dragStartY = 0;
+
+const imgFundoEl = document.getElementById('img-fundo');
+
+// Habilita pointer-events na imagem quando em ajuste
+function atualizarPointerImg() {
+    if (painelFloat.classList.contains('ativo') || painelAjuste.classList.contains('ativo')) {
+        imgFundoEl.style.pointerEvents = 'auto';
+        imgFundoEl.style.cursor = 'grab';
+    } else {
+        imgFundoEl.style.pointerEvents = 'none';
+        imgFundoEl.style.cursor = 'default';
+    }
+}
+
+// Observer para refletir classe ativa nos pointer-events
+const observerFloat = new MutationObserver(atualizarPointerImg);
+observerFloat.observe(painelFloat, { attributes: true, attributeFilter: ['class'] });
+observerFloat.observe(painelAjuste, { attributes: true, attributeFilter: ['class'] });
+
+imgFundoEl.addEventListener('mousedown', (e) => {
+    if (!painelFloat.classList.contains('ativo') && !painelAjuste.classList.contains('ativo')) return;
+    isDraggingImg = true;
+    dragStartX = e.clientX - ajusteState.x;
+    dragStartY = e.clientY - ajusteState.y;
+    imgFundoEl.style.cursor = 'grabbing';
+    e.preventDefault();
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDraggingImg) return;
+    ajusteState.x = e.clientX - dragStartX;
+    ajusteState.y = e.clientY - dragStartY;
+    
+    inputX.value = ajusteState.x;
+    inputY.value = ajusteState.y;
+    sincronizarFloat();
+    
+    atualizarTransformFundo();
+    atualizarLabels();
+});
+
+document.addEventListener('mouseup', () => {
+    if (!isDraggingImg) return;
+    isDraggingImg = false;
+    imgFundoEl.style.cursor = (painelFloat.classList.contains('ativo') || painelAjuste.classList.contains('ativo')) ? 'grab' : 'default';
+});
+
+// Scroll para zoom direto na imagem + Shift para rotação
+document.getElementById('desenho-area').addEventListener('wheel', (e) => {
+    if (!painelFloat.classList.contains('ativo') && !painelAjuste.classList.contains('ativo')) return;
+    e.preventDefault();
+    
+    if (e.shiftKey) {
+        // Shift + roda = rotação
+        const deltaR = e.deltaY > 0 ? -2 : 2;
+        ajusteState.rotation = Math.max(-180, Math.min(180, ajusteState.rotation + deltaR));
+        inputRotacao.value = ajusteState.rotation;
+    } else {
+        // Roda = zoom
+        const delta = e.deltaY > 0 ? -0.05 : 0.05;
+        ajusteState.scale = Math.max(0.1, Math.min(5, ajusteState.scale + delta));
+        inputEscala.value = ajusteState.scale;
+    }
+    
+    sincronizarFloat();
+    atualizarTransformFundo();
+    atualizarLabels();
+}, { passive: false });
+
+// Suporte a arrastar a imagem com botão do meio ou botão direito também
+imgFundoEl.addEventListener('contextmenu', (e) => {
+    if (painelFloat.classList.contains('ativo') || painelAjuste.classList.contains('ativo')) {
+        e.preventDefault();
+    }
+});
+
+function resetarAjuste() {
+    ajusteState.scale = 1;
+    ajusteState.rotation = 0;
+    ajusteState.x = 0;
+    ajusteState.y = 0;
+    
+    inputEscala.value = 1;
+    inputX.value = 0;
+    inputY.value = 0;
+    inputRotacao.value = 0;
+    
+    sincronizarFloat();
+    atualizarTransformFundo();
+    atualizarLabels();
+}
+
+function girar90() {
+    ajusteState.rotation = (ajusteState.rotation + 90) % 360;
+    if (ajusteState.rotation > 180) ajusteState.rotation -= 360;
+    inputRotacao.value = ajusteState.rotation;
+    sincronizarFloat();
+    atualizarTransformFundo();
+    atualizarLabels();
+}
+
+function centralizarImagem() {
+    ajusteState.x = 0;
+    ajusteState.y = 0;
+    inputX.value = 0;
+    inputY.value = 0;
+    sincronizarFloat();
+    atualizarTransformFundo();
+    atualizarLabels();
+}
+
+function ajustarParaCaber() {
+    ajusteState.scale = 1;
+    inputEscala.value = 1;
+    ajusteState.x = 0;
+    ajusteState.y = 0;
+    inputX.value = 0;
+    inputY.value = 0;
+    sincronizarFloat();
+    atualizarTransformFundo();
+    atualizarLabels();
+}
+
 function atualizarEstadoAluno() {
-    const selects = document.querySelectorAll('#grade-respostas select');
     const nome = document.getElementById('aluno-nome').value.trim();
     let preenchidas = 0;
-    respostasAlunoAtual = [];
-    selects.forEach(s => {
-        respostasAlunoAtual.push(s.value);
-        if (s.value) preenchidas++;
-    });
+    respostasAlunoAtual.forEach(r => { if (r) preenchidas++; });
 
     const btnAdd = document.getElementById('btn-adicionar-aluno');
     btnAdd.disabled = !(nome && preenchidas === 45);
@@ -269,22 +908,20 @@ function atualizarEstadoAluno() {
 
 function limparFormularioAluno() {
     document.getElementById('aluno-nome').value = '';
-    document.querySelectorAll('#grade-respostas select').forEach(s => s.value = '');
+    document.getElementById('aluno-matricula').value = '';
+    document.querySelectorAll('#desenho-area .bolinha-cartao').forEach(b => b.classList.remove('marcada'));
     respostasAlunoAtual = new Array(45).fill('');
     atualizarEstadoAluno();
 }
 
 function adicionarAluno() {
     const nome = document.getElementById('aluno-nome').value.trim().replace(/\s+/g, ' ');
+    const matricula = document.getElementById('aluno-matricula').value.trim();
     if (!nome) { alert('Digite o nome do aluno.'); return; }
 
-    const selects = document.querySelectorAll('#grade-respostas select');
-    const respostas = [];
-    selects.forEach(s => respostas.push(s.value));
+    if (respostasAlunoAtual.some(r => !r)) { alert('Preencha todas as 45 respostas.'); return; }
 
-    if (respostas.some(r => !r)) { alert('Preencha todas as 45 respostas.'); return; }
-
-    alunosCadastrados.push({ nome, respostas: respostas.slice() });
+    alunosCadastrados.push({ nome, matricula, respostas: respostasAlunoAtual.slice() });
     renderizarListaAlunos();
     limparFormularioAluno();
     atualizarBotaoCorrigirTodos();
@@ -301,8 +938,9 @@ function renderizarListaAlunos() {
     }
     let html = '';
     alunosCadastrados.forEach((a, idx) => {
+        const matStr = a.matricula ? ' — Matrícula: ' + a.matricula : '';
         html += '<div class="aluno-cadastrado">' +
-            '<div class="info"><strong>' + a.nome + '</strong> — ' + a.respostas.length + ' respostas</div>' +
+            '<div class="info"><strong>' + a.nome + '</strong>' + matStr + ' — ' + a.respostas.length + ' respostas</div>' +
             '<button type="button" class="btn-remover" onclick="removerAluno(' + idx + ')">Remover</button>' +
             '</div>';
     });
@@ -365,7 +1003,7 @@ async function corrigirTodosAlunos() {
         }
         return {
             nome: a.nome,
-            matricula: '',
+            matricula: a.matricula || '',
             acertos,
             erros: 45 - acertos,
             nota: acertos,
@@ -388,8 +1026,10 @@ async function corrigirTodosAlunos() {
     form.submit();
 }
 
-construirGradeRespostas();
+construirTabelaRespostas();
+configurarArrasto();
 atualizarEstadoAluno();
+atualizarPointerImg();
 document.getElementById('aluno-nome').addEventListener('input', atualizarEstadoAluno);
 
 carregarGabarito();

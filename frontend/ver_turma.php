@@ -42,6 +42,8 @@ th { background: #ecf0f1; }
 .btn:hover { background: #21618c; }
 .btn-pdf { background: #e74c3c; }
 .btn-pdf:hover { background: #c0392b; }
+.btn-planilha { background: #27ae60; }
+.btn-planilha:hover { background: #1e8449; }
 .detalhes-box { display: none; background: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
 .detalhes-box.ativo { display: block; }
 .certo { background: #d4edda; }
@@ -77,6 +79,7 @@ th { background: #ecf0f1; }
 <header>
     <h1>Resultado da Turma</h1>
     <div class="header-actions nao-imprimir">
+        <button class="btn btn-planilha" onclick="baixarPlanilha()">Baixar Planilha (CSV)</button>
         <button class="btn btn-pdf" onclick="imprimirGeral()">Baixar PDF Geral</button>
     </div>
 </header>
@@ -94,6 +97,7 @@ th { background: #ecf0f1; }
         <table>
             <tr>
                 <th>Nome</th>
+                <th>Matrícula</th>
                 <th>Acertos</th>
                 <th>Erros</th>
                 <th>Nota</th>
@@ -102,6 +106,7 @@ th { background: #ecf0f1; }
             <?php foreach ($resultados as $index => $aluno): ?>
             <tr class="linha-aluno">
                 <td class="nome-aluno"><?= htmlspecialchars($aluno['nome']) ?></td>
+                <td><?= htmlspecialchars($aluno['matricula'] ?? '') ?></td>
                 <td><?= $aluno['acertos'] ?> / 45</td>
                 <td><?= $aluno['erros'] ?> / 45</td>
                 <td><strong><?= number_format($aluno['nota'], 2) ?></strong></td>
@@ -117,6 +122,7 @@ th { background: #ecf0f1; }
         <?php foreach ($resultados as $index => $aluno): ?>
         <div id="detalhes-<?= $index ?>" class="detalhes-box">
             <h3 style="margin-bottom: 10px;">Aluno: <?= htmlspecialchars($aluno['nome']) ?></h3>
+            <p style="margin-bottom: 10px;"><strong>Matrícula:</strong> <?= htmlspecialchars($aluno['matricula'] ?? '') ?></p>
             <div class="resumo-aluno">
                 <div><strong>Acertos</strong><span><?= $aluno['acertos'] ?> / 45</span></div>
                 <div><strong>Erros</strong><span><?= $aluno['erros'] ?> / 45</span></div>
@@ -167,6 +173,25 @@ function imprimirAluno(index) {
         document.body.classList.remove('imprimir-apenas-este');
         document.getElementById('detalhes-' + index).classList.remove('ativo');
     }, 1000);
+}
+function baixarPlanilha() {
+    const dados = <?= json_encode($resultados, JSON_UNESCAPED_UNICODE) ?>;
+    if (!dados || dados.length === 0) return;
+    let csv = 'Matricula;Nota\n';
+    dados.forEach(a => {
+        const mat = (a.matricula || '').replace(/;/g, ',').replace(/"/g, '""');
+        const nota = Number(a.nota || 0).toFixed(2).replace('.', ',');
+        csv += '"' + mat + '";' + nota + '\n';
+    });
+    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'planilha_turma.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }
 </script>
 </body>
