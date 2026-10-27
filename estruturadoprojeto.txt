@@ -14,3 +14,4 @@ CORRETOR-PROVAS/
 └── visao_computacional/
     ├── ler_cartao.py
     └── requirements.txt
+    |_ servidor.py
