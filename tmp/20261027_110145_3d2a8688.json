@@ -1,0 +1,4762 @@
+[
+    {
+        "nome": "Rafael de Carvalho Macado Filho",
+        "matricula": "231007094",
+        "acertos": 40,
+        "erros": 5,
+        "nota": 40,
+        "percentual": 88.8900000000000005684341886080801486968994140625,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Nicholas Rodrigues Duarte",
+        "matricula": "231007085",
+        "acertos": 38,
+        "erros": 7,
+        "nota": 38,
+        "percentual": 84.43999999999999772626324556767940521240234375,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "D",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Rafaella Thomas Lanza",
+        "matricula": "251039228",
+        "acertos": 41,
+        "erros": 4,
+        "nota": 41,
+        "percentual": 91.1099999999999994315658113919198513031005859375,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            }
+        ]
+    },
+    {
+        "nome": "Isabela Paulista",
+        "matricula": "231020710",
+        "acertos": 38,
+        "erros": 7,
+        "nota": 38,
+        "percentual": 84.43999999999999772626324556767940521240234375,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Felipe Santos Teofilo",
+        "matricula": "231007076",
+        "acertos": 41,
+        "erros": 4,
+        "nota": 41,
+        "percentual": 91.1099999999999994315658113919198513031005859375,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Vitor José Gomes de Oliveira",
+        "matricula": "231029350",
+        "acertos": 37,
+        "erros": 8,
+        "nota": 37,
+        "percentual": 82.219999999999998863131622783839702606201171875,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Estevão André Cardoso",
+        "matricula": "231034458",
+        "acertos": 41,
+        "erros": 4,
+        "nota": 41,
+        "percentual": 91.1099999999999994315658113919198513031005859375,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            }
+        ]
+    },
+    {
+        "nome": "pedro César Rezende",
+        "matricula": "231020828",
+        "acertos": 41,
+        "erros": 4,
+        "nota": 41,
+        "percentual": 91.1099999999999994315658113919198513031005859375,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Gustavo Caralho de Rocha",
+        "matricula": "231006936",
+        "acertos": 43,
+        "erros": 2,
+        "nota": 43,
+        "percentual": 95.56000000000000227373675443232059478759765625,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            }
+        ]
+    },
+    {
+        "nome": "Davi S O Toledo",
+        "matricula": "251038525",
+        "acertos": 39,
+        "erros": 6,
+        "nota": 39,
+        "percentual": 86.6700000000000017053025658242404460906982421875,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Lucas Rodrigues Vaz de Melo",
+        "matricula": "231020757",
+        "acertos": 45,
+        "erros": 0,
+        "nota": 45,
+        "percentual": 100,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            }
+        ]
+    },
+    {
+        "nome": "Laryssa Kellye Pereira",
+        "matricula": "222039849",
+        "acertos": 39,
+        "erros": 6,
+        "nota": 39,
+        "percentual": 86.6700000000000017053025658242404460906982421875,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Guilherme Rodrigues Souza",
+        "matricula": "2370 20793",
+        "acertos": 39,
+        "erros": 6,
+        "nota": 39,
+        "percentual": 86.6700000000000017053025658242404460906982421875,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "João Pedro Olinda Macêdo",
+        "matricula": "231020720",
+        "acertos": 43,
+        "erros": 2,
+        "nota": 43,
+        "percentual": 95.56000000000000227373675443232059478759765625,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            }
+        ]
+    },
+    {
+        "nome": "Edrio Adriano Costa",
+        "matricula": "221028519",
+        "acertos": 27,
+        "erros": 18,
+        "nota": 27,
+        "percentual": 60,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "B",
+                "acertou": false
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Pedro Luís Pereira Braga",
+        "matricula": "231020766",
+        "acertos": 43,
+        "erros": 2,
+        "nota": 43,
+        "percentual": 95.56000000000000227373675443232059478759765625,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "D",
+                "acertou": false
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "A",
+                "acertou": false
+            }
+        ]
+    },
+    {
+        "nome": "Martina Neiva Fortes",
+        "matricula": "231006963",
+        "acertos": 43,
+        "erros": 2,
+        "nota": 43,
+        "percentual": 95.56000000000000227373675443232059478759765625,
+        "detalhes": [
+            {
+                "questao": 1,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 2,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 3,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 4,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 5,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 6,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 7,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 8,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 9,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 10,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 11,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 12,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 13,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 14,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 15,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 16,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 17,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 18,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 19,
+                "gabarito": "D",
+                "aluno": "A",
+                "acertou": false
+            },
+            {
+                "questao": 20,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 21,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 22,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 23,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 24,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 25,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 26,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 27,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 28,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 29,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 30,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 31,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            },
+            {
+                "questao": 32,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 33,
+                "gabarito": "D",
+                "aluno": "C",
+                "acertou": false
+            },
+            {
+                "questao": 34,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 35,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 36,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 37,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 38,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 39,
+                "gabarito": "D",
+                "aluno": "D",
+                "acertou": true
+            },
+            {
+                "questao": 40,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 41,
+                "gabarito": "B",
+                "aluno": "B",
+                "acertou": true
+            },
+            {
+                "questao": 42,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 43,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 44,
+                "gabarito": "A",
+                "aluno": "A",
+                "acertou": true
+            },
+            {
+                "questao": 45,
+                "gabarito": "C",
+                "aluno": "C",
+                "acertou": true
+            }
+        ]
+    }
+]
