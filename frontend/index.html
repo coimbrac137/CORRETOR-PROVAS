@@ -96,7 +96,6 @@ th { background: #ecf0f1; }
 .bolinha-cartao.marcada::after { content: ''; position: absolute; top: 1.5px; left: 1.5px; right: 1.5px; bottom: 1.5px; border-radius: 50%; border: 1.5px solid #fff; }
 .cabecalho-cartao { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; font-weight: bold; color: #555; position: relative; z-index: 2; margin-top: 10px; }
 
-/* Corrigido alinhamento do cabeçalho para bater com a largura das colunas */
 .cabecalho-cartao .col-titulo { flex: 1; display: flex; justify-content: space-around; padding-left: 38px; padding-right: 0px; }
 
 .desenho-area { position: relative; touch-action: none; user-select: none; -webkit-user-select: none; }
@@ -159,48 +158,71 @@ body.ajustando main { margin: 0; flex: 1; max-width: none; }
 #tabela-gabarito td { padding: 6px 8px; font-size: 13px; }
 #tabela-gabarito th { padding: 6px 8px; font-size: 12px; }
 #tabela-gabarito select { font-size: 13px; padding: 4px 6px; min-width: 50px; font-weight: bold; }
+
+/* UPLOAD GABARITO */
+.upload-gabarito { background: #f8f9fa; border: 1px solid #ddd; padding: 20px; border-radius: 6px; margin-top: 15px; }
+.upload-gabarito .drop-area { border: 2px dashed #2980b9; border-radius: 6px; padding: 30px; text-align: center; background: #eef6fc; cursor: pointer; transition: 0.2s; display: block; }
+.upload-gabarito .drop-area:hover, .upload-gabarito .drop-area.hover { background: #d6ebfa; border-color: #21618c; }
+.upload-gabarito .drop-area p { font-size: 14px; color: #555; margin-top: 8px; }
+.upload-gabarito .drop-area strong { color: #21618c; }
+.upload-gabarito input[type="file"] { display: none; }
+.preview-gabarito { margin-top: 15px; text-align: center; }
+.preview-gabarito img { max-width: 100%; max-height: 400px; border: 1px solid #ccc; border-radius: 4px; }
+.gabarito-lido { margin-top: 15px; }
+.gabarito-lido table { max-width: 600px; margin: 0 auto; }
+.gabarito-lido .valor-lido { font-weight: bold; color: #27ae60; font-size: 14px; }
+.gabarito-lido .valor-vazio { color: #e74c3c; font-weight: bold; }
+.status-upload { font-size: 13px; margin-top: 10px; text-align: center; }
+.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #ccc; border-top-color: #2980b9; border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 <main>
 
 <div class="abas">
-    <button type="button" class="ativa" onclick="mostrarAba('img')">Comparar Listas (4 campos)</button>
+    <button type="button" class="ativa" onclick="mostrarAba('img')">Ler Gabarito por Imagem</button>
     <button type="button" onclick="mostrarAba('manual')">Colar Respostas (Manual)</button>
 </div>
 
 <div id="aba-img" class="painel ativo">
-    <h2>Comparar Listas (4 campos)</h2>
-    <div class="aviso">Cole as quatro listas abaixo. O nome e a sequência de respostas serão comparados de forma rígida entre os campos.</div>
+    <h2>Ler Gabarito por Imagem</h2>
+    <div class="aviso">Faça o upload da imagem do gabarito. O sistema usará visão computacional para identificar as respostas (A, B, C, D) de cada questão e exibirá os dados lidos abaixo.</div>
 
-    <div class="bloco-comp">
-        <label>Lista 1</label>
-        <textarea id="comp1" placeholder="Nome do Aluno: Pedro Paulo de Souza Suedes&#10;1. C&#10;2. B&#10;3. C&#10;..."></textarea>
-    </div>
-    <div class="bloco-comp">
-        <label>Lista 2</label>
-        <textarea id="comp2" placeholder="Nome do Aluno: Pedro Paulo de Souza Suedes&#10;1. C&#10;2. B&#10;3. C&#10;..."></textarea>
-    </div>
-    <div class="bloco-comp">
-        <label>Lista 3</label>
-        <textarea id="comp3" placeholder="Nome do Aluno: Pedro Paulo de Souza Suedes&#10;1. C&#10;2. B&#10;3. C&#10;..."></textarea>
-    </div>
-    <div class="bloco-comp">
-        <label>Lista 4</label>
-        <textarea id="comp4" placeholder="Nome do Aluno: Pedro Paulo de Souza Suedes&#10;1. C&#10;2. B&#10;3. C&#10;..."></textarea>
-    </div>
+    <div class="upload-gabarito">
+        <label for="input-gabarito" class="drop-area" id="drop-area-gabarito">
+            <div style="font-size:32px;">📷</div>
+            <p><strong>Clique aqui</strong> ou arraste a imagem do gabarito</p>
+            <p style="font-size:12px;color:#888;">Formatos aceitos: JPG, PNG</p>
+            <input type="file" id="input-gabarito" accept="image/*">
+        </label>
 
-    <div class="botoes-comp">
-        <button type="button" class="secundario" onclick="compararListas()">Comparar</button>
-        <button type="button" id="btn-exportar" disabled onclick="exportarDados()">Exportar Dados</button>
-        <button type="button" id="btn-copiar" disabled onclick="copiarDados()">Copiar Todos</button>
+        <div class="preview-gabarito" id="preview-gabarito" style="display:none;">
+            <img id="img-preview-gabarito" src="" alt="Preview do gabarito">
+        </div>
+
+        <div style="margin-top:15px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+            <button type="button" id="btn-processar-gabarito" class="secundario" onclick="processarGabarito()" disabled>Processar Gabarito</button>
+            <button type="button" id="btn-limpar-gabarito" class="alerta" onclick="limparGabaritoUpload()" disabled>Limpar</button>
+        </div>
+
+        <div class="status-upload" id="status-upload"></div>
     </div>
 
-    <div id="resultado-comp" class="resultado-comp" style="display:none;"></div>
+    <div class="gabarito-lido" id="gabarito-lido" style="display:none;">
+        <h2>Respostas Lidas</h2>
+        <table>
+            <tr><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th><th>Q</th><th>Resp.</th></tr>
+            <tbody id="tabela-gabarito-lido"></tbody>
+        </table>
+    </div>
 
     <div id="saida-export" class="saida-export" style="display:none;">
         <h2>Dados Corrigidos</h2>
         <textarea id="texto-export" readonly></textarea>
+        <div style="margin-top:10px;">
+            <button type="button" id="btn-copiar" onclick="copiarDados()">Copiar Todos</button>
+        </div>
     </div>
 </div>
 
@@ -365,11 +387,12 @@ body.ajustando main { margin: 0; flex: 1; max-width: none; }
 
 <script>
 let dadosCorrigidos = null;
-let listasGlobais = null;
 
 let alunosCadastrados = [];
 let gabaritoOficial = null;
 let respostasAlunoAtual = new Array(45).fill('');
+
+let arquivoGabaritoSelecionado = null;
 
 function mostrarAba(id) {
     document.querySelectorAll('.painel').forEach(p => p.classList.remove('ativo'));
@@ -378,6 +401,114 @@ function mostrarAba(id) {
     event.target.classList.add('ativa');
     if (id === 'manual') setTimeout(redimensionarCanvas, 50);
 }
+
+/* ============ UPLOAD / VISÃO COMPUTACIONAL ============ */
+
+const inputGabarito = document.getElementById('input-gabarito');
+const dropAreaGabarito = document.getElementById('drop-area-gabarito');
+const previewGabarito = document.getElementById('preview-gabarito');
+const imgPreviewGabarito = document.getElementById('img-preview-gabarito');
+const btnProcessarGabarito = document.getElementById('btn-processar-gabarito');
+const btnLimparGabarito = document.getElementById('btn-limpar-gabarito');
+const statusUpload = document.getElementById('status-upload');
+
+inputGabarito.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) selecionarArquivoGabarito(file);
+});
+
+dropAreaGabarito.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    dropAreaGabarito.classList.add('hover');
+});
+dropAreaGabarito.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    dropAreaGabarito.classList.remove('hover');
+});
+dropAreaGabarito.addEventListener('drop', function(e) {
+    e.preventDefault();
+    dropAreaGabarito.classList.remove('hover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) selecionarArquivoGabarito(file);
+});
+
+function selecionarArquivoGabarito(file) {
+    arquivoGabaritoSelecionado = file;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        imgPreviewGabarito.src = evt.target.result;
+        previewGabarito.style.display = 'block';
+        btnProcessarGabarito.disabled = false;
+        btnLimparGabarito.disabled = false;
+        statusUpload.textContent = 'Imagem carregada: ' + file.name;
+        statusUpload.style.color = '#155724';
+        document.getElementById('gabarito-lido').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+}
+
+function limparGabaritoUpload() {
+    arquivoGabaritoSelecionado = null;
+    inputGabarito.value = '';
+    imgPreviewGabarito.src = '';
+    previewGabarito.style.display = 'none';
+    btnProcessarGabarito.disabled = true;
+    btnLimparGabarito.disabled = true;
+    statusUpload.textContent = '';
+    document.getElementById('gabarito-lido').style.display = 'none';
+    document.getElementById('saida-export').style.display = 'none';
+    dadosCorrigidos = null;
+}
+
+function processarGabarito() {
+    if (!arquivoGabaritoSelecionado) return;
+
+    btnProcessarGabarito.disabled = true;
+    statusUpload.innerHTML = '<span class="spinner"></span>Processando imagem...';
+    statusUpload.style.color = '#b9770e';
+
+    const form = new FormData();
+    form.append('imagem', arquivoGabaritoSelecionado);
+
+    fetch('http://localhost:5000/ler', { method: 'POST', body: form })
+        .then(r => r.json())
+        .then(dados => {
+            if (!dados.ok) {
+                statusUpload.textContent = 'Erro: ' + (dados.erro || 'falha ao processar');
+                statusUpload.style.color = '#721c24';
+                btnProcessarGabarito.disabled = false;
+                return;
+            }
+            exibirGabaritoLido(dados.respostas || {});
+            statusUpload.textContent = '✓ Gabarito lido com sucesso.';
+            statusUpload.style.color = '#155724';
+            btnProcessarGabarito.disabled = false;
+        })
+        .catch(err => {
+            statusUpload.textContent = 'Erro na requisição: ' + err.message + ' — o servidor Python está rodando?';
+            statusUpload.style.color = '#721c24';
+            btnProcessarGabarito.disabled = false;
+        });
+}
+
+function exibirGabaritoLido(respostas) {
+    const tbody = document.getElementById('tabela-gabarito-lido');
+    let html = '';
+    for (let i = 1; i <= 15; i++) {
+        html += '<tr>';
+        for (let c = 0; c < 3; c++) {
+            const q = i + (c * 15);
+            const v = (respostas[q] || respostas[String(q)] || '').toString().toUpperCase();
+            const cls = v ? 'valor-lido' : 'valor-vazio';
+            html += '<td>' + q + '</td><td class="' + cls + '">' + (v || '—') + '</td>';
+        }
+        html += '</tr>';
+    }
+    tbody.innerHTML = html;
+    document.getElementById('gabarito-lido').style.display = 'block';
+}
+
+/* ============ FIM UPLOAD / VISÃO COMPUTACIONAL ============ */
 
 function criarTabela(tbodyId, prefixo, valores) {
     const tbody = document.getElementById(tbodyId);
@@ -603,7 +734,6 @@ document.getElementById('input-imagem').addEventListener('change', function(e) {
             document.getElementById('img-container').style.display = 'block';
             document.getElementById('btn-ajustar').disabled = false;
             
-            // Resetar ajustes
             ajusteState.scale = 1;
             ajusteState.rotation = 0;
             ajusteState.x = 0;
@@ -634,14 +764,12 @@ function limparImagem() {
     fecharPainelFlutuante();
 }
 
-// Lógica do Painel Lateral de Ajuste
 const painelAjuste = document.getElementById('painel-ajuste');
 const inputEscala = document.getElementById('ajuste-escala');
 const inputX = document.getElementById('ajuste-x');
 const inputY = document.getElementById('ajuste-y');
 const inputRotacao = document.getElementById('ajuste-rotacao');
 
-// Painel flutuante
 const painelFloat = document.getElementById('painel-float-img');
 const floatEscala = document.getElementById('float-escala');
 const floatRotacao = document.getElementById('float-rotacao');
@@ -654,7 +782,6 @@ function abrirAjusteImagem() {
     painelAjuste.classList.add('ativo');
     painelFloat.classList.add('ativo');
     
-    // Sincronizar sliders com o estado atual
     inputEscala.value = ajusteState.scale;
     inputX.value = ajusteState.x;
     inputY.value = ajusteState.y;
@@ -712,7 +839,6 @@ function atualizarTransformFundo() {
     imgFundo.style.transform = `translate(calc(-50% + ${ajusteState.x}px), calc(-50% + ${ajusteState.y}px)) scale(${finalScale}) rotate(${ajusteState.rotation}deg)`;
 }
 
-// Eventos dos sliders laterais
 inputEscala.addEventListener('input', (e) => {
     ajusteState.scale = parseFloat(e.target.value);
     atualizarTransformFundo();
@@ -741,7 +867,6 @@ inputRotacao.addEventListener('input', (e) => {
     atualizarLabels();
 });
 
-// Eventos dos sliders flutuantes
 floatEscala.addEventListener('input', (e) => {
     ajusteState.scale = parseFloat(e.target.value);
     inputEscala.value = ajusteState.scale;
@@ -770,14 +895,12 @@ floatY.addEventListener('input', (e) => {
     atualizarLabels();
 });
 
-// Interação direta com a imagem (arrastar) — agora com pointer-events ativados durante ajuste
 let isDraggingImg = false;
 let dragStartX = 0;
 let dragStartY = 0;
 
 const imgFundoEl = document.getElementById('img-fundo');
 
-// Habilita pointer-events na imagem quando em ajuste
 function atualizarPointerImg() {
     if (painelFloat.classList.contains('ativo') || painelAjuste.classList.contains('ativo')) {
         imgFundoEl.style.pointerEvents = 'auto';
@@ -788,7 +911,6 @@ function atualizarPointerImg() {
     }
 }
 
-// Observer para refletir classe ativa nos pointer-events
 const observerFloat = new MutationObserver(atualizarPointerImg);
 observerFloat.observe(painelFloat, { attributes: true, attributeFilter: ['class'] });
 observerFloat.observe(painelAjuste, { attributes: true, attributeFilter: ['class'] });
@@ -821,18 +943,15 @@ document.addEventListener('mouseup', () => {
     imgFundoEl.style.cursor = (painelFloat.classList.contains('ativo') || painelAjuste.classList.contains('ativo')) ? 'grab' : 'default';
 });
 
-// Scroll para zoom direto na imagem + Shift para rotação
 document.getElementById('desenho-area').addEventListener('wheel', (e) => {
     if (!painelFloat.classList.contains('ativo') && !painelAjuste.classList.contains('ativo')) return;
     e.preventDefault();
     
     if (e.shiftKey) {
-        // Shift + roda = rotação
         const deltaR = e.deltaY > 0 ? -2 : 2;
         ajusteState.rotation = Math.max(-180, Math.min(180, ajusteState.rotation + deltaR));
         inputRotacao.value = ajusteState.rotation;
     } else {
-        // Roda = zoom
         const delta = e.deltaY > 0 ? -0.05 : 0.05;
         ajusteState.scale = Math.max(0.1, Math.min(5, ajusteState.scale + delta));
         inputEscala.value = ajusteState.scale;
@@ -843,7 +962,6 @@ document.getElementById('desenho-area').addEventListener('wheel', (e) => {
     atualizarLabels();
 }, { passive: false });
 
-// Suporte a arrastar a imagem com botão do meio ou botão direito também
 imgFundoEl.addEventListener('contextmenu', (e) => {
     if (painelFloat.classList.contains('ativo') || painelAjuste.classList.contains('ativo')) {
         e.preventDefault();
@@ -1034,439 +1152,6 @@ document.getElementById('aluno-nome').addEventListener('input', atualizarEstadoA
 
 carregarGabarito();
 
-function limparNome(nome) {
-    return nome.replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim();
-}
-
-function parseListaOrdenada(texto) {
-    const alunos = [];
-    const linhas = texto.split('\n');
-    let nomeAtual = null;
-    let respAtual = [];
-    let numerado = false;
-
-    function fechar() {
-        if (nomeAtual !== null) {
-            alunos.push({
-                nome: nomeAtual,
-                respostas: respAtual.slice(),
-                valido: respAtual.length === 45
-            });
-        }
-        nomeAtual = null;
-        respAtual = [];
-        numerado = false;
-    }
-
-    const reNum = /^\s*(\d+)\s*[\.\)\-]\s*([A-Za-z])\s*$/;
-    const reLetraIsolada = /(?<![A-Za-zÀ-ÿ])[ABCD](?![A-Za-zÀ-ÿ])/g;
-
-    for (const linhaBruta of linhas) {
-        const limpa = linhaBruta.trim();
-        if (!limpa) continue;
-
-        const mNome = limpa.match(/^(?:Nome do Aluno|Nome)\s*:\s*(.+)$/i);
-        if (mNome) {
-            fechar();
-            nomeAtual = limparNome(mNome[1]);
-            continue;
-        }
-
-        if (nomeAtual === null) continue;
-
-        const mNum = limpa.match(reNum);
-        if (mNum) {
-            numerado = true;
-            respAtual.push(mNum[2].toUpperCase());
-            continue;
-        }
-
-        if (numerado) continue;
-
-        const letras = limpa.match(reLetraIsolada);
-        if (letras) {
-            letras.forEach(l => respAtual.push(l));
-        }
-    }
-    fechar();
-    return alunos;
-}
-
-function chaveNome(nome) {
-    return limparNome(nome)
-        .toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .replace(/\b(sobrenome|conferir|a confirmar|leitura do nome manuscrito|grafia)\b/gi, '')
-        .replace(/[^a-z\s]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-}
-
-function nomesParecidos(a, b) {
-    const pa = chaveNome(a).split(' ').filter(x => x.length > 2);
-    const pb = chaveNome(b).split(' ').filter(x => x.length > 2);
-    if (pa.length === 0 || pb.length === 0) return 0;
-    let comuns = 0;
-    pa.forEach(p => { if (pb.includes(p)) comuns++; });
-    return comuns / Math.max(pa.length, pb.length);
-}
-
-function compararListas() {
-    const textos = [
-        document.getElementById('comp1').value,
-        document.getElementById('comp2').value,
-        document.getElementById('comp3').value,
-        document.getElementById('comp4').value
-    ];
-    const listasAlunos = textos.map(parseListaOrdenada);
-    listasGlobais = textos;
-
-    const totalMax = Math.max(...listasAlunos.map(l => l.length));
-
-    const resultado = document.getElementById('resultado-comp');
-    resultado.style.display = 'block';
-    resultado.innerHTML = '';
-    document.getElementById('saida-export').style.display = 'none';
-    dadosCorrigidos = null;
-    document.getElementById('btn-exportar').disabled = true;
-    document.getElementById('btn-copiar').disabled = true;
-
-    if (totalMax === 0) {
-        resultado.innerHTML = '<div class="erro">Nenhum aluno encontrado nas listas.</div>';
-        return;
-    }
-
-    const corrigidos = new Map();
-    let tudoIgual = true;
-
-    for (let pos = 0; pos < totalMax; pos++) {
-        const presentes = listasAlunos.map(l => l[pos] || null);
-        const primeiroPresente = presentes.find(p => p);
-        const nomeRef = primeiroPresente.nome;
-
-        const div = document.createElement('div');
-        div.className = 'item';
-
-        let html = '<strong>Posição ' + (pos + 1) + ' — ' + nomeRef + '</strong>';
-
-        const faltando = [];
-        presentes.forEach((p, i) => { if (!p) faltando.push(i); });
-        if (faltando.length > 0) {
-            html += ': <span class="erro">Nome não encontrado em: ' +
-                faltando.map(i => 'Lista ' + (i + 1)).join(', ') + '</span>';
-
-            html += '<div class="faltando-box"><strong>Nome nesta mesma posição em cada lista:</strong>';
-            for (let k = 0; k < 4; k++) {
-                const nomeNaPos = presentes[k] ? presentes[k].nome : '(sem aluno nesta posição)';
-                const bate = presentes[k] && nomesParecidos(nomeNaPos, nomeRef) >= 0.7;
-                html += '<div class="faltando-item">Lista ' + (k + 1) + ': “' + nomeNaPos + '”' + (bate ? ' ✓' : ' ✗') + '</div>';
-            }
-            html += '</div>';
-
-            html += '<div class="nome-fix"><strong>Digite o nome correto:</strong>' +
-                '<input type="text" class="input-nome" data-pos="' + pos + '" value="' + nomeRef.replace(/"/g, '&quot;') + '">' +
-                '<div class="botoes"><button type="button" class="btn-aplicar" onclick="aplicarNome(this)">Aplicar nome</button></div>' +
-                '</div>';
-
-            div.innerHTML = html;
-            resultado.appendChild(div);
-            tudoIgual = false;
-            continue;
-        }
-
-        let todosNomesIguais = true;
-        for (let i = 1; i < 4; i++) {
-            if (nomesParecidos(presentes[i].nome, nomeRef) < 0.7) {
-                todosNomesIguais = false;
-                break;
-            }
-        }
-        if (!todosNomesIguais) {
-            html += ': <span class="erro">✗ Nomes diferentes detectados</span>';
-            html += '<div class="faltando-box"><strong>Nomes nesta mesma posição:</strong>';
-            for (let k = 0; k < 4; k++) {
-                const bate = nomesParecidos(presentes[k].nome, nomeRef) >= 0.7;
-                html += '<div class="faltando-item">Lista ' + (k + 1) + ': “' + presentes[k].nome + '”' + (bate ? ' ✓' : ' ✗') + '</div>';
-            }
-            html += '</div>';
-
-            html += '<div class="nome-fix"><strong>Digite o nome correto:</strong>' +
-                '<input type="text" class="input-nome" data-pos="' + pos + '" value="' + nomeRef.replace(/"/g, '&quot;') + '">' +
-                '<div class="botoes"><button type="button" class="btn-aplicar" onclick="aplicarNome(this)">Aplicar nome</button></div>' +
-                '</div>';
-
-            div.innerHTML = html;
-            resultado.appendChild(div);
-            tudoIgual = false;
-            continue;
-        }
-
-        const tamanhos = presentes.map(p => p.respostas.length);
-        const todos45 = tamanhos.every(t => t === 45);
-        if (!todos45) {
-            html += ': <span class="erro">Quantidade de respostas inválida (deve ser 45): ' +
-                tamanhos.map((t, i) => 'L' + (i + 1) + '=' + t).join(', ') + '</span>';
-            div.innerHTML = html;
-            resultado.appendChild(div);
-            tudoIgual = false;
-            continue;
-        }
-
-        const respostas = presentes.map(p => p.respostas);
-        const divergencias = [];
-        const padroes = [];
-        for (let i = 0; i < 45; i++) {
-            const valores = respostas.map(r => r[i]);
-            const todosIguais = valores.every(v => v === valores[0]);
-            if (!todosIguais) {
-                const detalhe = valores.map((v, idx) => 'L' + (idx + 1) + '=' + v).join(', ');
-                divergencias.push('Q' + (i + 1) + ' (' + detalhe + ')');
-
-                const contagem = {};
-                valores.forEach(v => { contagem[v] = (contagem[v] || 0) + 1; });
-                const maxVotos = Math.max(...Object.values(contagem));
-                const vencedores = Object.keys(contagem).filter(k => contagem[k] === maxVotos);
-                const temPadrao = maxVotos >= 3 && vencedores.length === 1;
-                const minorias = Object.keys(contagem).filter(k => k !== (vencedores.length === 1 ? vencedores[0] : null));
-
-                padroes.push({ questao: i + 1, valores, maioria: temPadrao ? vencedores[0] : null, temPadrao, contagem, minorias });
-            }
-        }
-
-        if (divergencias.length === 0) {
-            html += ': <span class="ok">✓ IGUAIS nos 4 campos (45 respostas)</span>';
-            corrigidos.set(nomeRef, respostas[0]);
-        } else {
-            html += '<br><span class="erro">✗ Diferente</span><br>' +
-                '<span style="font-size:12px;">Divergências: ' + divergencias.join(' | ') + '</span>';
-
-            html += '<div class="padrao-box"><strong>⚠ Resumo das divergências (contagem de votos):</strong>';
-            padroes.forEach(p => {
-                const det = p.valores.map((v, idx) => 'L' + (idx + 1) + '=' + v).join(', ');
-                const votos = Object.entries(p.contagem).map(([k, v]) => k + ':' + v).join(' | ');
-                let status = '';
-                if (p.temPadrao) {
-                    const minStr = p.minorias.length > 0 ? p.minorias.join(', ') : '-';
-                    status = 'Maioria: <strong>' + p.maioria + '</strong> | Minoria: <strong>' + minStr + '</strong>';
-                } else {
-                    status = '<span style="color:#721c24">Sem maioria clara</span>';
-                }
-                html += '<div class="padrao-item">Q' + p.questao + ' → ' + det + ' <br>Votos: ' + votos + ' → ' + status;
-
-                if (!p.temPadrao) {
-                    html += '<div class="manual-major">' +
-                        '<select class="select-manual" data-pos="' + pos + '" data-q="' + p.questao + '">' +
-                        '<option value="">Escolher...</option>' +
-                        '<option value="A">A</option>' +
-                        '<option value="B">B</option>' +
-                        '<option value="C">C</option>' +
-                        '<option value="D">D</option>' +
-                        '</select>' +
-                        '<button type="button" class="btn-manual" onclick="aplicarManual(this)">Aplicar</button>' +
-                        '</div>';
-                }
-
-                html += '</div>';
-            });
-
-            const comPadrao = padroes.filter(p => p.temPadrao);
-            if (comPadrao.length > 0) {
-                html += '<div>';
-                html += '<button type="button" class="btn-padrao" data-pos="' + pos + '" onclick="aceitarPadrao(this)">Aceitar maioria</button>';
-                html += '<button type="button" class="btn-minoria" data-pos="' + pos + '" onclick="aceitarMinoria(this)">Aceitar minoria</button>';
-                html += '</div>';
-            }
-            html += '</div>';
-            tudoIgual = false;
-        }
-
-        div.innerHTML = html;
-        resultado.appendChild(div);
-    }
-
-    if (tudoIgual && corrigidos.size > 0) {
-        dadosCorrigidos = corrigidos;
-        document.getElementById('btn-exportar').disabled = false;
-    }
-}
-
-function aplicarNome(btn) {
-    const wrapper = btn.closest('.nome-fix');
-    const input = wrapper.querySelector('.input-nome');
-    const pos = parseInt(input.dataset.pos, 10);
-    const novoNome = input.value.trim().replace(/\s+/g, ' ');
-    if (!novoNome) { alert('Digite um nome.'); return; }
-
-    for (let k = 0; k < 4; k++) {
-        const linhas = listasGlobais[k].split('\n');
-        let cont = 0;
-        for (let i = 0; i < linhas.length; i++) {
-            const limpa = linhas[i].trim();
-            const mNome = limpa.match(/^(?:Nome do Aluno|Nome)\s*:\s*(.+)$/i);
-            if (!mNome) continue;
-            if (cont === pos) {
-                linhas[i] = 'Nome do Aluno: ' + novoNome;
-                break;
-            }
-            cont++;
-        }
-        listasGlobais[k] = linhas.join('\n');
-    }
-
-    document.getElementById('comp1').value = listasGlobais[0];
-    document.getElementById('comp2').value = listasGlobais[1];
-    document.getElementById('comp3').value = listasGlobais[2];
-    document.getElementById('comp4').value = listasGlobais[3];
-
-    compararListas();
-}
-
-function aplicarValoresFinais(pos, valoresFinais) {
-    for (let k = 0; k < 4; k++) {
-        const linhas = listasGlobais[k].split('\n');
-        let contAluno = 0;
-        let dentro = false;
-        let idxResp = 0;
-
-        for (let i = 0; i < linhas.length; i++) {
-            const limpa = linhas[i].trim();
-            if (!limpa) continue;
-
-            const mNome = limpa.match(/^(?:Nome do Aluno|Nome)\s*:\s*(.+)$/i);
-            if (mNome) {
-                dentro = (contAluno === pos);
-                idxResp = 0;
-                contAluno++;
-                continue;
-            }
-
-            if (dentro) {
-                const mNum = limpa.match(/^(\d+\s*[\.\)\-]\s*)([A-Za-z])\s*$/);
-                if (mNum) {
-                    const f = valoresFinais[idxResp];
-                    if (f !== null && f !== undefined) {
-                        linhas[i] = linhas[i].replace(/(\d+\s*[\.\)\-]\s*)([A-Za-z])\s*$/, (mm, prefix) => prefix + f);
-                    }
-                    idxResp++;
-                    continue;
-                }
-            }
-        }
-
-        listasGlobais[k] = linhas.join('\n');
-    }
-
-    document.getElementById('comp1').value = listasGlobais[0];
-    document.getElementById('comp2').value = listasGlobais[1];
-    document.getElementById('comp3').value = listasGlobais[2];
-    document.getElementById('comp4').value = listasGlobais[3];
-
-    compararListas();
-}
-
-function aceitarPadrao(btn) {
-    const pos = parseInt(btn.dataset.pos, 10);
-    if (!listasGlobais) return;
-
-    const listasAlunos = listasGlobais.map(parseListaOrdenada);
-    const presentes = listasAlunos.map(l => l[pos] || null);
-    if (presentes.some(p => !p)) return;
-
-    const respostas = presentes.map(p => p.respostas.slice());
-    if (!respostas.every(r => r.length === 45)) return;
-
-    const valoresFinais = [];
-    for (let i = 0; i < 45; i++) {
-        const vals = respostas.map(r => r[i]);
-        const todosIguais = vals.every(v => v === vals[0]);
-        if (todosIguais) { valoresFinais.push(vals[0]); continue; }
-        const cont = {};
-        vals.forEach(v => { cont[v] = (cont[v] || 0) + 1; });
-        const max = Math.max(...Object.values(cont));
-        const venc = Object.keys(cont).filter(k => cont[k] === max);
-        valoresFinais.push((max >= 3 && venc.length === 1) ? venc[0] : null);
-    }
-
-    aplicarValoresFinais(pos, valoresFinais);
-}
-
-function aceitarMinoria(btn) {
-    const pos = parseInt(btn.dataset.pos, 10);
-    if (!listasGlobais) return;
-
-    const listasAlunos = listasGlobais.map(parseListaOrdenada);
-    const presentes = listasAlunos.map(l => l[pos] || null);
-    if (presentes.some(p => !p)) return;
-
-    const respostas = presentes.map(p => p.respostas.slice());
-    if (!respostas.every(r => r.length === 45)) return;
-
-    const valoresFinais = [];
-    for (let i = 0; i < 45; i++) {
-        const vals = respostas.map(r => r[i]);
-        const todosIguais = vals.every(v => v === vals[0]);
-        if (todosIguais) { valoresFinais.push(vals[0]); continue; }
-        const cont = {};
-        vals.forEach(v => { cont[v] = (cont[v] || 0) + 1; });
-        const max = Math.max(...Object.values(cont));
-        const venc = Object.keys(cont).filter(k => cont[k] === max);
-        if (max >= 3 && venc.length === 1) {
-            const minorias = Object.keys(cont).filter(k => k !== venc[0]);
-            let melhorMin = null, melhorMinVotos = -1;
-            minorias.forEach(m => {
-                if (cont[m] > melhorMinVotos) { melhorMinVotos = cont[m]; melhorMin = m; }
-            });
-            valoresFinais.push(melhorMin);
-        } else {
-            valoresFinais.push(null);
-        }
-    }
-
-    aplicarValoresFinais(pos, valoresFinais);
-}
-
-function aplicarManual(btn) {
-    const wrapper = btn.closest('.manual-major');
-    const sel = wrapper.querySelector('.select-manual');
-    const pos = parseInt(sel.dataset.pos, 10);
-    const q = parseInt(sel.dataset.q, 10);
-    const valor = sel.value;
-    if (!valor) { alert('Escolha uma alternativa.'); return; }
-
-    const listasAlunos = listasGlobais.map(parseListaOrdenada);
-    const presentes = listasAlunos.map(l => l[pos] || null);
-    if (presentes.some(p => !p)) return;
-
-    if (!presentes.every(p => p.respostas.length === 45)) return;
-
-    const valoresFinais = [];
-    for (let i = 0; i < 45; i++) {
-        if ((i + 1) === q) {
-            valoresFinais.push(valor);
-        } else {
-            const vals = presentes.map(p => p.respostas[i]);
-            const todosIguais = vals.every(v => v === vals[0]);
-            valoresFinais.push(todosIguais ? vals[0] : null);
-        }
-    }
-
-    aplicarValoresFinais(pos, valoresFinais);
-}
-
-function exportarDados() {
-    if (!dadosCorrigidos) return;
-    const linhas = [];
-    const nomes = [...dadosCorrigidos.keys()].sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }));
-    for (const nome of nomes) {
-        linhas.push('Nome do Aluno: ' + nome + ' ' + dadosCorrigidos.get(nome).join(' '));
-    }
-    const texto = linhas.join('\n');
-    const ta = document.getElementById('texto-export');
-    ta.value = texto;
-    document.getElementById('saida-export').style.display = 'block';
-    document.getElementById('btn-copiar').disabled = false;
-}
-
 function copiarDados() {
     const ta = document.getElementById('texto-export');
     if (!ta.value) return;
@@ -1482,8 +1167,6 @@ function copiarDados() {
     btn.textContent = 'Copiado!';
     setTimeout(() => { btn.textContent = original; }, 1500);
 }
-
-carregarGabarito();
 </script>
 </body>
 </html>

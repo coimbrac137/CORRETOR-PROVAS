@@ -13,16 +13,11 @@ except ImportError:
     erro("Instale as dependencias: pip install -r requirements.txt")
 
 
-def ler_cartao(caminho_imagem, debug=False):
-    img = cv2.imread(caminho_imagem)
-    if img is None:
-        erro(f"Não foi possível abrir a imagem: {caminho_imagem}")
-
+def detectar_bolinhas(img):
     h, w = img.shape[:2]
     if max(h, w) > 2500:
         escala = 2500 / max(h, w)
         img = cv2.resize(img, (int(w * escala), int(h * escala)))
-        h, w = img.shape[:2]
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -46,14 +41,22 @@ def ler_cartao(caminho_imagem, debug=False):
             continue
         bolinhas.append({'x': float(x), 'y': float(y), 'r': float(raio), 'area': float(area)})
 
+    return bolinhas, gray
+
+
+def ler_cartao(caminho_imagem, debug=False):
+    img = cv2.imread(caminho_imagem)
+    if img is None:
+        erro(f"Não foi possível abrir a imagem: {caminho_imagem}")
+
+    bolinhas, gray = detectar_bolinhas(img)
+
     if debug:
         print(f"DIAG: Bolinhas brutas={len(bolinhas)}", file=sys.stderr)
 
     if len(bolinhas) < 180:
         erro(f"Detectei apenas {len(bolinhas)} bolinhas. A imagem está nítida?")
 
-    # Remove a "Versão" se houver. A Versão fica no topo e tem apenas 4 bolinhas.
-    # As questões têm 12 bolinhas por linha. Vamos ordenar por Y e agrupar em linhas.
     bolinhas.sort(key=lambda b: b['y'])
     
     linhas = []
@@ -71,7 +74,6 @@ def ler_cartao(caminho_imagem, debug=False):
     if linha_atual:
         linhas.append(linha_atual)
 
-    # Filtrar as linhas que realmente são de questões (aquelas que têm >= 10 bolinhas)
     linhas_questoes = [l for l in linhas if len(l) >= 10]
     
     if debug:
@@ -80,7 +82,6 @@ def ler_cartao(caminho_imagem, debug=False):
     if len(linhas_questoes) < 15:
         erro(f"Detectei apenas {len(linhas_questoes)} linhas de questões. Esperado 15.")
 
-    # Pega as 15 linhas mais cheias e ordena por Y
     linhas_questoes.sort(key=lambda l: len(l), reverse=True)
     top_15_linhas = linhas_questoes[:15]
     top_15_linhas.sort(key=lambda l: l[0]['y'])
@@ -88,23 +89,18 @@ def ler_cartao(caminho_imagem, debug=False):
     respostas = {}
 
     for idx_linha, linha in enumerate(top_15_linhas):
-        # Ordena as bolinhas da linha por X (da esquerda para a direita)
         linha.sort(key=lambda b: b['x'])
         
-        # Filtra para remover possíveis números (ex: "01") usando o raio mediano
         raios = [b['r'] for b in linha]
         raio_mediano = np.median(raios)
         linha_filtrada = [b for b in linha if abs(b['r'] - raio_mediano) < raio_mediano * 0.3]
         
         if len(linha_filtrada) < 12:
-            linha_filtrada = linha # fallback
+            linha_filtrada = linha
             
-        # Como o cartão tem 3 colunas, a linha deve ter 12 bolinhas (3x4)
-        # Divide em 3 grupos de 4
         if len(linha_filtrada) >= 12:
             grupos = [linha_filtrada[0:4], linha_filtrada[4:8], linha_filtrada[8:12]]
         else:
-            # Se não achou 12, tenta dividir igualmente
             grupos = np.array_split(linha_filtrada, 3)
 
         for col_idx, grupo in enumerate(grupos):
@@ -118,18 +114,15 @@ def ler_cartao(caminho_imagem, debug=False):
             
             densidades = []
             for b in grupo_ordenado:
-                x, y, r = int(b['x']), int(b['y']), int(b['r'])
-                # Pega um recorte no centro exato da bolinha
+                x, y = int(b['x']), int(b['y'])
                 roi = gray[y-3:y+4, x-3:x+4]
                 if roi.size == 0:
                     densidades.append(255)
                     continue
                 densidades.append(float(np.mean(roi)))
 
-            media_geral = np.mean(densidades)
             marcada_idx = int(np.argmin(densidades))
 
-            # Se a bolinha for escura o suficiente, consideramos marcada
             if densidades[marcada_idx] < 128:
                 letras = ['A', 'B', 'C', 'D']
                 respostas[q_num] = letras[marcada_idx]
@@ -143,15 +136,20 @@ def extrair_nome_matricula(caminho_imagem):
     return '', ''
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--aluno', required=True)
-    parser.add_argument('--gabarito')
-    parser.add_argument('--gabarito-json')
-    parser.add_argument('--saida', required=True)
-    parser.add_argument('--debug', action='store_true')
-    args = parser.parse_args()
+def modo_gabarito(caminho_imagem, debug=False):
+    try:
+        respostas = ler_cartao(caminho_imagem, debug=debug)
+    except SystemExit:
+        raise
+    except Exception as e:
+        print(json.dumps({"ok": False, "erro": str(e)}, ensure_ascii=False))
+        sys.exit(0)
 
+    respostas_str = {str(k): v for k, v in respostas.items()}
+    print(json.dumps({"ok": True, "respostas": respostas_str}, ensure_ascii=False))
+
+
+def modo_correcao(args):
     respostas_aluno = ler_cartao(args.aluno, debug=args.debug)
 
     if args.gabarito_json:
@@ -191,6 +189,29 @@ def main():
         json.dump(resultado, f, ensure_ascii=False, indent=2)
 
     print("OK")
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--gabarito', help='Imagem do gabarito')
+    parser.add_argument('--aluno', help='Imagem do cartão do aluno (modo correção)')
+    parser.add_argument('--gabarito-json', help='JSON com gabarito já lido (modo correção)')
+    parser.add_argument('--saida', help='Arquivo JSON de saída (modo correção)')
+    parser.add_argument('--debug', action='store_true')
+    args = parser.parse_args()
+
+    if args.gabarito and not args.aluno and not args.saida:
+        modo_gabarito(args.gabarito, debug=args.debug)
+        return
+
+    if not args.aluno:
+        erro("Modo correção requer --aluno.")
+    if not args.saida:
+        erro("Modo correção requer --saida.")
+    if not args.gabarito and not args.gabarito_json:
+        erro("Modo correção requer --gabarito ou --gabarito-json.")
+
+    modo_correcao(args)
 
 
 if __name__ == '__main__':
