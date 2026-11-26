@@ -9,7 +9,7 @@ Sistema especializado em visão computacional e leitura óptica (OMR) para extra
 ---  
     
 ## 📋 Índice
-     
+        
 - [🎯 Sobre o Projeto](#-sobre-o-projeto)
 - [✨ Funcionalidades](#-funcionalidades)
 - [🗂 Estrutura do Cartão](#-estrutura-do-cartão)
