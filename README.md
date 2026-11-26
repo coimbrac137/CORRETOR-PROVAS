@@ -7,7 +7,7 @@
 Sistema especializado em visão computacional e leitura óptica (OMR) para extração automatizada de dados de cartões de resposta preenchidos manualmente, com correção automática baseada em gabarito oficial cadastrado manualmente e geração de relatórios imprimíveis. Desenvolvido com foco em precisão absoluta, sendo ideal para avaliações de alto risco, como provas de medicina, onde um único erro de leitura pode prejudicar o aluno.
 
 ---  
-  
+    
 ## 📋 Índice
      
 - [🎯 Sobre o Projeto](#-sobre-o-projeto)
